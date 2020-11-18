@@ -33,11 +33,6 @@ function Home({ artListingAll, artist }) {
         <PaintingGrid paintings={artListingAll} />
         <InformationGrid content={historyAfricanArt} />
         <InformationGrid content={futureAfricanArt} reverse />
-        <InformationGrid content={essenceAfricanArt} />
-        <InformationGrid content={whoAreWe} reverse />
-        {/* <InformationGrid content={whyUs} /> */}
-        {/* <ArtistGrid artist={artist} /> */}
-        {/* {artListingAll.length != 0 && <PaintingGrid paintings={artListingAll} />} */}
       </div>
     </Fragment>
   );

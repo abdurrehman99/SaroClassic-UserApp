@@ -8,6 +8,7 @@ import {
   Grid,
   Typography,
   Paper,
+  InputAdornment,
 } from "@material-ui/core";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -59,15 +60,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup({ history: { push } }) {
   const classes = useStyles();
+  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
     password: "",
+    contact: "",
   });
   const [formValidation, setFormValidation] = useState({
     name: {},
     email: {},
     password: {},
+    contact: {},
   });
 
   const formChange = ({ target: { name, value } }) => {
@@ -85,18 +89,19 @@ export default function Signup({ history: { push } }) {
         return false;
       }
     }
-    // Object.values(formValidation).map(val => {
-    //   if (val.error) {
-    //     return false;
-    //   }
-    // });
     return true;
   };
 
   const signupUser = async (e) => {
     e.preventDefault();
-    if (!isFormValid()) {
-      showSnackBar("Resolve Errors", "error");
+    if (
+      !isFormValid() ||
+      formValues.email === "" ||
+      formValues.password === "" ||
+      formValues.name === "" ||
+      formValues.contact === ""
+    ) {
+      showSnackBar("Please Enter Credentials in Correct Format !", "warning");
     } else {
       try {
         const response = await axios.post(ROUTES.USER_REGISTER, formValues);
@@ -116,24 +121,21 @@ export default function Signup({ history: { push } }) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Register New Account
           </Typography>
-          <form className={classes.form} onSubmit={signupUser}>
+          <form className={classes.form} noValidate onSubmit={signupUser}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="name"
                   name="name"
                   variant="outlined"
-                  required
                   fullWidth
                   id="name"
                   label="Name"
                   autoFocus
+                  margin="normal"
                   value={formValues.name}
                   onChange={formChange}
                   {...formValidation.name}
@@ -142,8 +144,8 @@ export default function Signup({ history: { push } }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   variant="outlined"
-                  required
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -157,8 +159,8 @@ export default function Signup({ history: { push } }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  margin="normal"
                   variant="outlined"
-                  required
                   fullWidth
                   name="password"
                   label="Password"
@@ -172,6 +174,27 @@ export default function Signup({ history: { push } }) {
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  name="contact"
+                  label="Mobile no."
+                  inputProps={{ maxLength: 10 }}
+                  id="contact"
+                  autoComplete="contact"
+                  value={formValues.contact}
+                  onChange={formChange}
+                  size="small"
+                  {...formValidation.contact}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">+92</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -180,7 +203,7 @@ export default function Signup({ history: { push } }) {
                       size="small"
                     />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I want to receive promotional emails."
                 />
               </Grid>
             </Grid>

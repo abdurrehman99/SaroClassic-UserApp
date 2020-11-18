@@ -3,10 +3,7 @@ export const region = (short) => {
   return short ? region : `?region=${region}`;
 };
 const SERVER_URL = "https://africanart-international-serve.herokuapp.com";
-// const SERVER_URL = "http://192.168.18.10:8003";
-// const SERVER_URL = "http://192.168.18.10:4000";
-// const SERVER_URL = "http://localhost:4000";
-// const SERVER_URL = "http://192.168.0.117:4000";
+const BASE_URL = "https://saroclassic-server.herokuapp.com";
 
 const USER_ROUTES = `${SERVER_URL}/user`;
 const ART_ROUTES = `${SERVER_URL}/arts`;
@@ -17,6 +14,7 @@ const ART_RESERVES_ROUTES = `${SERVER_URL}/reserves`;
 
 export const ROUTES = {
   //AuthRoutes
+
   USER_REGISTER: `${USER_ROUTES}/register`,
   USER_LOGIN: `${USER_ROUTES}/login`,
   USER_VERIFY: `${USER_ROUTES}/verify`,

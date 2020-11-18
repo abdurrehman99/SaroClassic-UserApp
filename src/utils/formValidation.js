@@ -4,6 +4,7 @@ export const regex = {
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
   name: /^[a-zA-Z\s-]{3,}$/,
   code: /^[0-9]+$/,
+  contact: /^[0-9]{10}$/,
   currencyFloat: /^\d+(\.\d+)?$/,
 };
 
@@ -21,9 +22,17 @@ export const fieldValidate = (text, type) => {
     case "password":
       if (!regex.password.test(text)) {
         result = {
+          error: false,
+          helperText: "",
+        };
+      }
+      break;
+
+    case "contact":
+      if (!regex.contact.test(text)) {
+        result = {
           error: true,
-          helperText:
-            "Incorrect Password Format. Must contain each small, capital alphabets, numbers and atleast 8 characters long.",
+          helperText: "Incorrect format",
         };
       }
       break;

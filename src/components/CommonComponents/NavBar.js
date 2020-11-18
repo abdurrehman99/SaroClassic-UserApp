@@ -210,7 +210,7 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
 						</MenuItem>
 					</Link>
 				)}
-				<Link className={classes.link} to={loggedIn ? "/account" : "/signin"}>
+				<Link className={classes.link} to={loggedIn ? "/account" : "/signup"}>
 					<MenuItem onClick={handleClose} className={classes.menuItem}>
 						Sign Up
 					</MenuItem>

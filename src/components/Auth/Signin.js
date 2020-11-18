@@ -13,7 +13,8 @@ import {
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { logo } from "../../utils/contentConstants";
+import { logoA } from "../../utils/contentConstants";
 import sideImage from "../../assets/authImages/sideImage.jpg";
 import { ROUTES } from "../../utils/api/routes";
 import { setCurrentUser } from "../../redux/actions";
@@ -63,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
   const classes = useStyles();
   const [formValues, setFormValues] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const [formValidation, setFormValidation] = useState({
     email: {},
     password: {},
@@ -84,12 +86,6 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
   };
 
   const isFormValid = () => {
-    // let valid = true;
-    // Object.values(formValidation).map(val => {
-    //   if (val.error) {
-    //     valid = false;
-    //   }
-    // });
     for (const val in formValidation) {
       if (formValidation[val].error) {
         return false;
@@ -100,16 +96,25 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
 
   const signinUser = async (e) => {
     e.preventDefault();
-    if (!isFormValid()) {
-      showSnackBar("Resolve Errors", "error");
+    if (
+      !isFormValid() ||
+      formValues.email === "" ||
+      formValues.password === ""
+    ) {
+      showSnackBar("Please Enter Credentials in Correct Format !", "warning");
     } else {
+      setLoading(true);
       try {
         const response = await axios.post(ROUTES.USER_LOGIN, formValues);
         localStorage.setItem("token", response.data.result.token);
         setCurrentUser(response.data.result);
         showSnackBar(response.data.responseMessage, "success");
+        setLoading(false);
+
         action === "PUSH" ? goBack() : push("/");
       } catch (e) {
+        setLoading(false);
+
         showSnackBar(
           e.response ? e.response.data.responseMessage : "An Error Occurred",
           "error"
@@ -123,17 +128,14 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          {/* <img src={logoA} width={80} alt="" /> */}
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} onSubmit={signinUser}>
+          <form className={classes.form} noValidate onSubmit={signinUser}>
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="email"
               label="Email Address"
@@ -148,7 +150,6 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               name="password"
               label="Password"
@@ -160,15 +161,11 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
               size="small"
               {...formValidation.password}
             />
-            <FormControlLabel
-              control={
-                <Checkbox value="remember" color="primary" size="small" />
-              }
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
+              disabled={loading}
               variant="contained"
               color="primary"
               className={classes.submit}
