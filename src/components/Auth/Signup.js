@@ -103,15 +103,16 @@ export default function Signup({ history: { push } }) {
     ) {
       showSnackBar("Please Enter Credentials in Correct Format !", "warning");
     } else {
+      setLoading(true);
       try {
-        const response = await axios.post(ROUTES.USER_REGISTER, formValues);
-        showSnackBar(response.data.responseMessage, "success");
+        await axios.post(ROUTES.USER_REGISTER, formValues);
+        setLoading(false);
+        showSnackBar("New User Registered Created !", "success");
         push("/signin");
       } catch (e) {
-        showSnackBar(
-          e.response ? e.response.data.responseMessage : "An Error Occurred",
-          "error"
-        );
+        setLoading(false);
+        console.log(e);
+        showSnackBar("Email Already Exist !", "error");
       }
     }
   };
@@ -212,6 +213,7 @@ export default function Signup({ history: { push } }) {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={loading}
               className={classes.submit}
             >
               Sign Up

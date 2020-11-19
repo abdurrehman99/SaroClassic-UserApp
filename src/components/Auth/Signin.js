@@ -106,17 +106,16 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
       setLoading(true);
       try {
         const response = await axios.post(ROUTES.USER_LOGIN, formValues);
-        localStorage.setItem("token", response.data.result.token);
-        setCurrentUser(response.data.result);
-        showSnackBar(response.data.responseMessage, "success");
+        // localStorage.setItem("token", response.data.result.token);
+        setCurrentUser(response.data.user);
         setLoading(false);
+        showSnackBar("User Logged Logged In !", "success");
 
         action === "PUSH" ? goBack() : push("/");
       } catch (e) {
         setLoading(false);
-
         showSnackBar(
-          e.response ? e.response.data.responseMessage : "An Error Occurred",
+          e.response ? e.response.data.message : "An Error Occurred",
           "error"
         );
       }
