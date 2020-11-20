@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "cloudinary-react": "^1.6.8",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.29.1",
     "qrcode.react": "^1.0.0",

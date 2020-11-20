@@ -1,5 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Typography, TextField, Button, Grid } from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  InputAdornment,
+} from "@material-ui/core";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { CountryPicker } from "../CommonComponents";
 import { makeStyles } from "@material-ui/styles";
@@ -17,12 +23,14 @@ function Profile({ user, updateProfile }) {
   const [fullName, setFullName] = useState("");
   const [country, setCountry] = useState("");
   const [contact, setContact] = useState("+92");
+  const [shippingAddress, setAddress] = useState("");
 
   useEffect(() => {
     if (user) {
       setFullName(user.name || "");
       setCountry(user.country || "");
       setContact(user.contact || "");
+      setAddress(user.shippingAddress || "");
     }
   }, [user]);
   return (
@@ -30,41 +38,54 @@ function Profile({ user, updateProfile }) {
       <Typography variant="h6">
         <b>General Information</b>
       </Typography>
-      <TextField
-        size="small"
-        variant="outlined"
-        label="Full Name"
-        margin="dense"
-        fullWidth
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-      />
-      <TextField
-        size="small"
-        variant="outlined"
-        label="Email"
-        margin="dense"
-        fullWidth
-        defaultValue={user.email}
-        disabled
-      />
       <Grid container spacing={1}>
         <Grid item md={6} xs={12}>
-          <CountryPicker
-            onChange={(e, v) => setCountry(v ? v.label : "")}
-            value={{ label: country }}
+          <TextField
+            size="small"
+            variant="outlined"
+            label="Full Name"
+            margin="dense"
+            fullWidth
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
         </Grid>
         <Grid item md={6} xs={12}>
-          <MuiPhoneNumber
-            defaultCountry={"pk"}
+          <TextField
             size="small"
             variant="outlined"
-            label="Phone"
+            label="Email"
             margin="dense"
             fullWidth
-            onChange={(v) => setContact(v)}
+            defaultValue={user.email}
+            disabled
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <TextField
+            size="small"
+            variant="outlined"
+            label="Shipping Address"
+            margin="dense"
+            fullWidth
+            value={shippingAddress}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <TextField
+            size="small"
+            variant="outlined"
+            label="Contact No."
+            margin="dense"
+            fullWidth
             value={contact}
+            disabled
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">+92</InputAdornment>
+              ),
+            }}
           />
         </Grid>
       </Grid>

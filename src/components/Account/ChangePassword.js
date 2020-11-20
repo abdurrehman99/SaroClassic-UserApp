@@ -30,7 +30,7 @@ function ChangePassword({ updatePassword, email }) {
   };
 
   return (
-    <form onSubmit={changePassSubmit}>
+    <form noValidate onSubmit={changePassSubmit}>
       <Typography variant="h6">
         <b>Change Password</b>
       </Typography>
@@ -65,7 +65,9 @@ function ChangePassword({ updatePassword, email }) {
       <Button
         variant="contained"
         color="primary"
-        // size="small"
+        disabled={
+          formValues.oldPass === "" || formValues.newPass === "" ? true : false
+        }
         margin="dense"
         type="submit"
         className={classes.button}

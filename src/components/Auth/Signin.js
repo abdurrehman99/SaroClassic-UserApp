@@ -106,7 +106,8 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
       setLoading(true);
       try {
         const response = await axios.post(ROUTES.USER_LOGIN, formValues);
-        // localStorage.setItem("token", response.data.result.token);
+        let token = response.data.token.split(" ");
+        localStorage.setItem("token", token[1]);
         setCurrentUser(response.data.user);
         setLoading(false);
         showSnackBar("User Logged Logged In !", "success");

@@ -1,33 +1,32 @@
 import { ROUTES } from "../../utils/api/routes";
 import axios from "axios";
-const { USER_GET_USER_FROM_TOKEN } = ROUTES;
+const { GET_USER_FROM_TOKEN } = ROUTES;
 
-export const setCurrentUser = user => {
+export const setCurrentUser = (user) => {
   return {
     type: "SET_CURRENT_USER",
-    payload: user
+    payload: user,
   };
 };
 export const logoutUser = () => {
   localStorage.removeItem("token");
   return {
-    type: "LOGOUT_USER"
+    type: "LOGOUT_USER",
   };
 };
-export const currentStatusUser = _ => async dispatch => {
-  try {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const response = await axios.get(USER_GET_USER_FROM_TOKEN, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      dispatch(setCurrentUser(response.data.result));
-    } else {
-      dispatch(logoutUser());
-    }
-  } catch (e) {
+export const currentStatusUser = (_) => async (dispatch) => {
+  console.log("currentStatusUser == >");
+  const token = localStorage.getItem("token");
+  console.log("token", token);
+  if (token) {
+    const response = await axios.get(GET_USER_FROM_TOKEN, {
+      token,
+    });
+    console.log("response", response);
+    dispatch(setCurrentUser(response.data.user));
+  } else {
+    console.log("token else");
+
     dispatch(logoutUser());
   }
 };

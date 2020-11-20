@@ -3,7 +3,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { Snackbar } from "@material-ui/core";
 import {
   showSnackBar as _showSnackBar,
-  closeSnackBar
+  closeSnackBar,
 } from "../../redux/actions";
 import { store } from "../../";
 import { connect } from "react-redux";
@@ -21,7 +21,7 @@ function SnackBar({ showSnackBar: { message, type, open }, closeSnackBar }) {
   };
 
   return (
-    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
       <MuiAlert elevation={6} variant="filled" severity={type}>
         {message}
       </MuiAlert>
@@ -29,9 +29,9 @@ function SnackBar({ showSnackBar: { message, type, open }, closeSnackBar }) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    showSnackBar: state.showSnackBar
+    showSnackBar: state.showSnackBar,
   };
 };
 

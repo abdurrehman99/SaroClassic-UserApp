@@ -14,11 +14,11 @@ const ART_RESERVES_ROUTES = `${SERVER_URL}/reserves`;
 
 export const ROUTES = {
   //AuthRoutes
-  USER_REGISTER: `${USER_ROUTES}/register`,
+  USER_REGISTER: `${BASE_URL}/user/signup`,
   USER_LOGIN: `${BASE_URL}/user/login`,
+  GET_USER_FROM_TOKEN: `${BASE_URL}/user/decodeUser`,
 
   USER_VERIFY: `${USER_ROUTES}/verify`,
-  USER_GET_USER_FROM_TOKEN: USER_ROUTES,
   USER_UPDATE_PROFILE: `${USER_ROUTES}?account_type=user`,
   USER_UPDATE_PASSWORD: `${USER_ROUTES}/update_password`,
   USER_GET_ORDERS: `${USER_ROUTES}/order`,

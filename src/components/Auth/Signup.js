@@ -105,13 +105,13 @@ export default function Signup({ history: { push } }) {
     } else {
       setLoading(true);
       try {
-        await axios.post(ROUTES.USER_REGISTER, formValues);
+        let newuser = await axios.post(ROUTES.USER_REGISTER, formValues);
         setLoading(false);
         showSnackBar("New User Registered Created !", "success");
         push("/signin");
       } catch (e) {
         setLoading(false);
-        console.log(e);
+        console.log(e.response.data);
         showSnackBar("Email Already Exist !", "error");
       }
     }
