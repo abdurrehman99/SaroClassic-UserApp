@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ChangePassword({ updatePassword, email }) {
+function ChangePassword({ updatePassword, email, history }) {
   const classes = useStyles();
   const [formValues, setFormValues] = useState({ oldPass: "", newPass: "" });
   const [formErrors, setFormErrors] = useState({ oldPass: {}, newPass: {} });
@@ -22,11 +22,15 @@ function ChangePassword({ updatePassword, email }) {
 
   const changePassSubmit = (e) => {
     e.preventDefault();
-    updatePassword({
-      email,
-      password: formValues.oldPass,
-      newPassword: formValues.newPass,
-    });
+    setFormValues({ oldPass: "", newPass: "" });
+    updatePassword(
+      {
+        email,
+        oldPassword: formValues.oldPass,
+        newPassword: formValues.newPass,
+      },
+      history
+    );
   };
 
   return (
@@ -42,12 +46,12 @@ function ChangePassword({ updatePassword, email }) {
         type="password"
         name="oldPass"
         required
-        fullWidth
         value={formValues.oldPass}
         onChange={formValueChange}
         error={formErrors.oldPass.error}
         helperText={formErrors.oldPass.helperText}
       />
+      <br />
       <TextField
         size="small"
         variant="outlined"
@@ -56,12 +60,12 @@ function ChangePassword({ updatePassword, email }) {
         type="password"
         name="newPass"
         required
-        fullWidth
         value={formValues.newPass}
         onChange={formValueChange}
         error={formErrors.newPass.error}
         helperText={formErrors.newPass.helperText}
       />
+      <br />
       <Button
         variant="contained"
         color="primary"

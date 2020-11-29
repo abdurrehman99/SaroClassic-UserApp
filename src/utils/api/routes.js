@@ -3,7 +3,10 @@ export const region = (short) => {
   return short ? region : `?region=${region}`;
 };
 const SERVER_URL = "https://africanart-international-serve.herokuapp.com";
-const BASE_URL = "https://saroclassic-server.herokuapp.com";
+
+const BASE_URL = "http://localhost:5000";
+// const BASE_URL = "https://saro-classic.herokuapp.com";
+// const BASE_URL = "https://saroclassic-server.herokuapp.com";
 
 const USER_ROUTES = `${SERVER_URL}/user`;
 const ART_ROUTES = `${SERVER_URL}/arts`;
@@ -17,10 +20,14 @@ export const ROUTES = {
   USER_REGISTER: `${BASE_URL}/user/signup`,
   USER_LOGIN: `${BASE_URL}/user/login`,
   GET_USER_FROM_TOKEN: `${BASE_URL}/user/decodeUser`,
+  USER_UPDATE_PROFILE: `${BASE_URL}/user/updateProfile`,
+  USER_UPDATE_PASSWORD: `${BASE_URL}/user/updatePassword`,
+
+  //Products Routes
+  FEATURED_PRODUCTS: `${BASE_URL}/products/featured`,
 
   USER_VERIFY: `${USER_ROUTES}/verify`,
-  USER_UPDATE_PROFILE: `${USER_ROUTES}?account_type=user`,
-  USER_UPDATE_PASSWORD: `${USER_ROUTES}/update_password`,
+
   USER_GET_ORDERS: `${USER_ROUTES}/order`,
 
   //ForgotPassword

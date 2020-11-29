@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@material-ui/core";
 // import { makeStyles } from "@material-ui/styles";
-import { PaintingCard2, PaintingModal, Carousel } from "../CommonComponents";
+import {
+  PaintingCard2,
+  PaintingModal,
+  Carousel,
+  Card2Loading,
+} from "../CommonComponents";
 
 // const useStyles = makeStyles(theme => ({
 //   marginTop: {
@@ -14,7 +19,7 @@ import { PaintingCard2, PaintingModal, Carousel } from "../CommonComponents";
 //   }
 // }));
 
-export default function PaintingGrid({ paintings }) {
+export default function PaintingGrid({ products }) {
   // const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
@@ -33,37 +38,19 @@ export default function PaintingGrid({ paintings }) {
         content={modalProduct}
       />
       <Typography variant="h3">Top Paintings</Typography>
-      {paintings.length ? (
+      {products.length ? (
         <Carousel
-          content={paintings.map((painting) => (
+          content={products.map((product) => (
             <PaintingCard2
-              content={painting}
+              content={product}
               marginAuto
-              onClick={() => showProductDetails(painting)}
+              onClick={() => showProductDetails(product)}
             />
           ))}
         />
       ) : null}
-      {/* <Grid
-        container
-        direction="row"
-        justify="space-around"
-        className={classes.marginTop}
-      >
-        {paintings.map(painting => (
-          <Grid item md={3} sm={6} xs={12} className={classes.itemStyle}>
-            <PaintingCard
-              content={painting}
-              onClick={_ => showProductDetails(painting)}
-            />
-          </Grid>
-        ))}
-      </Grid> */}
-      {!paintings.length && (
-        <Typography variant="body1" color="secondary" align="center">
-          Nothing To Show.
-        </Typography>
-      )}
+
+      {!products.length && <Card2Loading />}
     </Box>
   );
 }

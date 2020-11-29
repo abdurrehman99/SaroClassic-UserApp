@@ -15,22 +15,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home({ artListingAll, artist }) {
+function Home({ featuredProducts, artist }) {
   const classes = useStyles();
-  const {
-    jumbotron,
-    historyAfricanArt,
-    essenceAfricanArt,
-    futureAfricanArt,
-    whoAreWe,
-    // whyUs,
-  } = homePageContent;
+  const { jumbotron, historyAfricanArt, futureAfricanArt } = homePageContent;
 
   return (
     <Fragment>
       <Jumbotron content={jumbotron} />
       <div className={classes.mainDiv}>
-        <PaintingGrid paintings={artListingAll} />
+        <PaintingGrid products={featuredProducts} />
         <InformationGrid content={historyAfricanArt} />
         <InformationGrid content={futureAfricanArt} reverse />
       </div>
@@ -40,7 +33,7 @@ function Home({ artListingAll, artist }) {
 
 const mapStateToProps = (state) => {
   return {
-    artListingAll: state.artListing.all,
+    featuredProducts: state.products.featuredProducts,
     artist: state.artist,
   };
 };

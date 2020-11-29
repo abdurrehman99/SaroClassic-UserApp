@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaintingCard2({ onClick, content, marginAuto }) {
   const classes = useStyles();
-  const { title, price, img, category } = content;
+  const { name, price, images, category } = content;
 
   return (
     <Card
@@ -50,24 +50,23 @@ export default function PaintingCard2({ onClick, content, marginAuto }) {
       style={marginAuto ? { margin: "16px auto" } : {}}
     >
       <ImageDivBackground
-        image={img[0]}
+        image={images[0]}
         // backgroundSize="contain"
         height="200px"
       />
       <Box py={2} px={4}>
         <Typography variant="body1">
           <b>
-            {(title.length > 22
-              ? title.split("").splice(0, 22).join("") + "..."
-              : title
-            ).toUpperCase()}
+            {name.length > 22
+              ? name.split("").splice(0, 22).join("") + "..."
+              : name}
           </b>
         </Typography>
-        <Typography variant="body1">${price}</Typography>
+        <Typography variant="body1">Rs{price}</Typography>
       </Box>
       <Box className={classes.categoryOverlay}>
         <Typography variant="caption">
-          <b>{category ? category.toUpperCase() : "N/A"}</b>
+          <b>{category ? category.toUpperCase() : null}</b>
         </Typography>
       </Box>
     </Card>

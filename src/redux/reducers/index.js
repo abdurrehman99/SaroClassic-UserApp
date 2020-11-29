@@ -11,6 +11,7 @@ import { regionSelectReducer } from "./regionSelectReducer";
 import { singleArtistReducer } from "./singleArtistReducer";
 import { inboxReducer } from "./inboxReducer";
 import { userOrdersReducer } from "./userOrdersReducer";
+import { productsReducer } from "./productsReducer";
 
 export default combineReducers({
   currentUser: currentUserReducer,
@@ -18,6 +19,7 @@ export default combineReducers({
   artListing: artListingReducer,
   artist: artistReducer,
   cart: cartReducer,
+  products: productsReducer,
   totalCart: totalCartReducer,
   searchResult: searchReducer,
   singleProduct: singleProductReducer,

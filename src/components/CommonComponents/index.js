@@ -17,6 +17,7 @@ import ImageDivBackground from "./ImageDivBackground";
 import CModal from "./CModal";
 import NumberOfSharesDialog from "./NumberOfSharesDialog";
 import PaintingCard2 from "./PaintingCard2";
+import Card2Loading from "./Card2Loading";
 
 export {
   NavBar,
@@ -39,4 +40,5 @@ export {
   CModal,
   NumberOfSharesDialog,
   PaintingCard2,
+  Card2Loading,
 };

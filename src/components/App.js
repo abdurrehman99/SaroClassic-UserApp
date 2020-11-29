@@ -2,15 +2,6 @@ import React, { useEffect, Fragment, lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { Container } from "@material-ui/core";
-// import Home from "./Home";
-// import BuyArt from "./BuyArt";
-// import Account, { Inbox, ListAndSell } from "./Account";
-// import Auction, { AuctionProductPage } from "./Auction";
-// import Reserve, { ReserveProductPage } from "./Reserve";
-// import Trading, { TradingProductPage } from "./Trading";
-// import Artists, { ArtistPage, BookNow } from "./Artists";
-// import { Signin, Signup, ForgotPassword } from "./Auth";
-// import NotFound from "./NotFound";
 import {
   NavBar,
   Footer,
@@ -20,13 +11,17 @@ import {
 import {
   fetchArtListingAll,
   fetchArtist,
-  currentStatusUser,
+  setCurrentUser,
   loadCart,
+  currentStatusUser,
+  getFeaturedProducts,
 } from "../redux/actions";
 import Success from "./Checkout/Success";
 import Failure from "./Checkout/Failure";
 import PaypalAfterPayment from "./Checkout/PaypalAfterPayment";
 import Crypto from "./Checkout/Crypto";
+import jwtDecode from "jwt-decode";
+
 const Home = lazy(() => import("./Home"));
 const BuyArt = lazy(() => import("./BuyArt"));
 const Account = lazy(() => import("./Account"));
@@ -46,16 +41,23 @@ const ForgotPassword = lazy(() => import("./Auth/ForgotPassword"));
 const NotFound = lazy(() => import("./NotFound"));
 const Search = lazy(() => import("./Search"));
 const Checkout = lazy(() => import("./Checkout"));
-
 function App({
   fetchArtListingAll,
   fetchArtist,
-  currentStatusUser,
+  getFeaturedProducts,
   loadCart,
   status,
+  currentStatusUser,
 }) {
   useEffect(() => {
-    currentStatusUser();
+    console.log(process.env.NODE_ENV);
+    const token = localStorage.getItem("token");
+    if (token) {
+      // let decodedUser = jwtDecode(token);
+      // console.log("==>", decodedUser);
+      currentStatusUser(token);
+    }
+    getFeaturedProducts();
     fetchArtListingAll();
     fetchArtist();
     loadCart();
@@ -212,6 +214,7 @@ const mapStateToProps = ({ currentUser: { status } }) => ({ status });
 export default connect(mapStateToProps, {
   fetchArtListingAll,
   fetchArtist,
-  currentStatusUser,
   loadCart,
+  currentStatusUser,
+  getFeaturedProducts,
 })(App);

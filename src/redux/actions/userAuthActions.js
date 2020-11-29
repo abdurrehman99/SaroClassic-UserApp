@@ -1,5 +1,6 @@
 import { ROUTES } from "../../utils/api/routes";
 import axios from "axios";
+import { showSnackBar } from "../../components/CommonComponents";
 const { GET_USER_FROM_TOKEN } = ROUTES;
 
 export const setCurrentUser = (user) => {
@@ -8,25 +9,23 @@ export const setCurrentUser = (user) => {
     payload: user,
   };
 };
+
 export const logoutUser = () => {
   localStorage.removeItem("token");
   return {
     type: "LOGOUT_USER",
   };
 };
-export const currentStatusUser = (_) => async (dispatch) => {
-  console.log("currentStatusUser == >");
-  const token = localStorage.getItem("token");
-  console.log("token", token);
-  if (token) {
-    const response = await axios.get(GET_USER_FROM_TOKEN, {
+
+export const currentStatusUser = (token) => async (dispatch) => {
+  try {
+    const response = await axios.post(GET_USER_FROM_TOKEN, {
       token,
     });
-    console.log("response", response);
     dispatch(setCurrentUser(response.data.user));
-  } else {
-    console.log("token else");
-
+  } catch (error) {
+    console.log("token not found ==> logout user", error.response);
+    showSnackBar("Session Expired !", "error");
     dispatch(logoutUser());
   }
 };

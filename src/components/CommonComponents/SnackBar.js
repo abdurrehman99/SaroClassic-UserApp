@@ -21,7 +21,7 @@ function SnackBar({ showSnackBar: { message, type, open }, closeSnackBar }) {
   };
 
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
       <MuiAlert elevation={6} variant="filled" severity={type}>
         {message}
       </MuiAlert>
