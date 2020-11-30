@@ -37,7 +37,7 @@ export default function PaintingGrid({ products }) {
         }}
         content={modalProduct}
       />
-      <Typography variant="h3">Top Paintings</Typography>
+      <Typography variant="h3">Featured Products</Typography>
       {products.length ? (
         <Carousel
           content={products.map((product) => (

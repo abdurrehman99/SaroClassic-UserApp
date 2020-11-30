@@ -143,11 +143,11 @@ function Cart({
               raised
             >
               <CardMedia
-                image={cartItem.img[0]}
+                image={cartItem.images[0]}
                 className={classes.cardMedia}
               />
               <CardContent className={classes.cardContent}>
-                <Typography variant="body2">{cartItem.title}</Typography>
+                <Typography variant="body2">{cartItem.name}</Typography>
                 <Typography variant="body2" color="secondary">
                   ${cartItem.price}
                 </Typography>

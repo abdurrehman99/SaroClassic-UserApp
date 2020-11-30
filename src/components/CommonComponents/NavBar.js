@@ -147,7 +147,7 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
         id="navShop"
         onClick={handleClick}
       >
-        Shop
+        Products
         <ExpandMoreOutlined fontSize="small" />
       </Link>
       <Menu
@@ -157,12 +157,12 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
         open={anchorEl && anchorEl.getAttribute("id") === "navShop"}
         onClose={handleClose}
       >
-        <Link className={classes.link} to="/buyart">
+        <Link className={classes.link} to="/allProducts">
           <MenuItem onClick={handleClose} className={classes.menuItem}>
-            Buy Art
+            All Products
           </MenuItem>
         </Link>
-        <Link className={classes.link} to="/masterpiece">
+        {/* <Link className={classes.link} to="/masterpiece">
           <MenuItem onClick={handleClose} className={classes.menuItem}>
             Masterpieces
           </MenuItem>
@@ -171,7 +171,7 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
           <MenuItem onClick={handleClose} className={classes.menuItem}>
             Auction
           </MenuItem>
-        </Link>
+        </Link> */}
       </Menu>
       <Link className={classes.link} to="/reserve">
         Reserve

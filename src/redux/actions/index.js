@@ -25,7 +25,7 @@ import { buyTradingShares } from "./tradingReserve";
 import { updateProfile, updatePassword } from "./userProfile";
 import { addOrder } from "./addOrder";
 import { userOrders } from "./userOrders";
-import { getFeaturedProducts } from "./productActions";
+import { getFeaturedProducts, getAllProducts } from "./productActions";
 
 export {
   setCurrentUser,
@@ -58,4 +58,5 @@ export {
   addOrder,
   userOrders,
   getFeaturedProducts,
+  getAllProducts,
 };

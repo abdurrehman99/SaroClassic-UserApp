@@ -12,6 +12,7 @@ import { singleArtistReducer } from "./singleArtistReducer";
 import { inboxReducer } from "./inboxReducer";
 import { userOrdersReducer } from "./userOrdersReducer";
 import { productsReducer } from "./productsReducer";
+import { categoryReducer } from "./categoryReducer";
 
 export default combineReducers({
   currentUser: currentUserReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   singleArtist: singleArtistReducer,
   inbox: inboxReducer,
   userOrders: userOrdersReducer,
+  categories: categoryReducer,
 });

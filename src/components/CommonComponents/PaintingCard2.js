@@ -62,7 +62,7 @@ export default function PaintingCard2({ onClick, content, marginAuto }) {
               : name}
           </b>
         </Typography>
-        <Typography variant="body1">Rs{price}</Typography>
+        <Typography variant="body1">Rs {price}</Typography>
       </Box>
       <Box className={classes.categoryOverlay}>
         <Typography variant="caption">

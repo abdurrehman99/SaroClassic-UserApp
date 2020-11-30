@@ -25,6 +25,9 @@ export const ROUTES = {
 
   //Products Routes
   FEATURED_PRODUCTS: `${BASE_URL}/products/featured`,
+  ALL_PRODUCTS: `${BASE_URL}/products/all`,
+
+  //Category Routes
 
   USER_VERIFY: `${USER_ROUTES}/verify`,
 

@@ -12,6 +12,7 @@ import {
   Icon,
   Box,
   TextField,
+  InputAdornment,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -19,10 +20,10 @@ import {
   LocationOnOutlined,
   PhoneOutlined,
   EmailOutlined,
+  Person,
 } from "@material-ui/icons";
 import { ROUTES } from "../../utils/api/routes";
 import { removeFromCart } from "../../redux/actions";
-import MuiPhoneNumber from "material-ui-phone-number";
 import {
   CountryPicker,
   showSnackBar,
@@ -185,14 +186,8 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
     if (status === "loggedIn") {
       setFullName(user.name);
       setEmail(user.email);
-      if (user.address && user.address[0]) {
-        setAddress(
-          `${user.address[0].address} ${
-            user.address[0].contact
-              ? `, Phone: ${user.address[0].contact}`
-              : null
-          }`
-        );
+      if (user.shippingAddress) {
+        setAddress(user.shippingAddress);
       }
       if (user.country) {
         setCountry(user.country);
@@ -216,10 +211,9 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 variant="outlined"
                 label="Full Name"
                 margin="dense"
-                required
                 fullWidth
                 value={fullName}
-                onChange={({ target: { value } }) => setFullName(value)}
+                // onChange={({ target: { value } }) => setFullName(value)}
               />
               <TextField
                 size="small"
@@ -227,10 +221,9 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 label="Email"
                 margin="dense"
                 type="email"
-                required
                 fullWidth
                 value={email}
-                onChange={({ target: { value } }) => setEmail(value)}
+                // onChange={({ target: { value } }) => setEmail(value)}
               />
               <TextField
                 size="small"
@@ -239,29 +232,25 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 multiline
                 rows={4}
                 margin="dense"
-                required
                 fullWidth
                 value={address}
                 onChange={({ target: { value } }) => setAddress(value)}
               />
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <CountryPicker
-                    onChange={(e, v) => setCountry(v ? v.label : "")}
-                    value={{ label: country }}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <MuiPhoneNumber
-                    defaultCountry={"pk"}
+                  <TextField
                     size="small"
                     variant="outlined"
-                    label="Phone"
+                    label="Contact No."
+                    type="text"
                     margin="dense"
                     fullWidth
-                    required
-                    onChange={(v) => setContact(v)}
                     value={contact}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">+92</InputAdornment>
+                      ),
+                    }}
                   />
                 </Grid>
               </Grid>
@@ -286,15 +275,13 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                       raised
                     >
                       <CardMedia
-                        image={cartItem.img[0]}
+                        image={cartItem.images[0]}
                         className={classes.cardMedia}
                       />
                       <CardContent className={classes.cardContent}>
-                        <Typography variant="body2">
-                          {cartItem.title}
-                        </Typography>
+                        <Typography variant="body2">{cartItem.name}</Typography>
                         <Typography variant="body2" color="secondary">
-                          ${cartItem.price}
+                          Rs {cartItem.price}
                         </Typography>
                       </CardContent>
                       <DeleteOutline
@@ -319,16 +306,18 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
               <Typography variant="h5">Shipping & Billing</Typography>
               <Divider className={classes.marginDivider} />
               <Box className={classes.detailItemStyle}>
-                <LocationOnOutlined fontSize="small" />
+                <Person fontSize="small" />
                 <Box ml={1}>
                   <Typography variant="body1">
                     {fullName || "-------"}
                   </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.detailItemStyle}>
+                <LocationOnOutlined fontSize="small" />
+                <Box ml={1}>
                   <Typography variant="body2">
                     {address || "-------"}
-                  </Typography>
-                  <Typography variant="body2">
-                    {country || "-------"}
                   </Typography>
                 </Box>
               </Box>
@@ -336,7 +325,7 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 <PhoneOutlined fontSize="small" />
                 <Box ml={1}>
                   <Typography variant="body1">
-                    {contact || "-------"}
+                    {`+92 ${contact}` || "-------"}
                   </Typography>
                 </Box>
               </Box>
@@ -349,7 +338,7 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
               <Divider className={classes.marginDivider} />
               <Card className={classes.cardTotal} raised>
                 <Typography variant="body2" className={classes.subTotal}>
-                  Subtotal: <b>${cart.total}</b>
+                  Subtotal: <b>Rs {cart.total}</b>
                 </Typography>
                 {/* <Typography variant="body2" color="secondary">
             *Shipping Charges will be added at checkout.

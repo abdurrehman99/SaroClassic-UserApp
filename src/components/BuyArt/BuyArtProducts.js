@@ -5,65 +5,65 @@ import { Grid, Box } from "@material-ui/core";
 import {
   PaintingCard,
   PaintingModal,
-  FullpageLoader
+  FullpageLoader,
 } from "../CommonComponents";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   fetchArtListingGeneral,
   fetchArtListingMasterpiece,
-  fetchSingleProduct
+  fetchSingleProduct,
 } from "../../redux/actions";
 import Pagination from "@material-ui/lab/Pagination";
 import PaintingCard2 from "../CommonComponents/PaintingCard2";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   marginTop: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   gridItemStyle: {
     display: "flex",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 }));
 
 function BuyArtProducts({
   artListingAll,
   artListingMasterpiece,
-  artListingGeneral,
+  allProducts,
   singleProduct,
   fetchArtListingGeneral,
   fetchArtListingMasterpiece,
   fetchSingleProduct,
   masterpiece,
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
-  const showProductDetails = product => {
+  const showProductDetails = (product) => {
     setModalProduct(product);
     setModalOpen(true);
   };
-  const fetchListing = pageNo => {
+  const fetchListing = (pageNo) => {
     masterpiece
       ? fetchArtListingMasterpiece(pageNo)
       : fetchArtListingGeneral(pageNo);
   };
-  useEffect(() => {
-    if (id) {
-      fetchSingleProduct(id);
-    }
-  }, [id]);
-  useEffect(() => {
-    if (singleProduct._id && id) {
-      showProductDetails(singleProduct);
-    }
-  }, [singleProduct._id]);
-  useEffect(() => {
-    masterpiece ? fetchArtListingMasterpiece() : fetchArtListingGeneral();
-  }, [masterpiece]);
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchSingleProduct(id);
+  //   }
+  // }, [id]);
+  // useEffect(() => {
+  //   if (singleProduct._id && id) {
+  //     showProductDetails(singleProduct);
+  //   }
+  // }, [singleProduct._id]);
+  // useEffect(() => {
+  //   masterpiece ? fetchArtListingMasterpiece() : fetchArtListingGeneral();
+  // }, [masterpiece]);
   return (
     <>
       <PaintingModal
@@ -74,23 +74,21 @@ function BuyArtProducts({
         content={modalProduct}
       />
       <Grid container className={classes.marginTop}>
-        {(masterpiece ? artListingMasterpiece : artListingGeneral).map(
-          painting => (
-            <Grid
-              item
-              lg={3}
-              md={4}
-              sm={6}
-              xs={12}
-              className={classes.gridItemStyle}
-            >
-              <PaintingCard2
-                onClick={_ => showProductDetails(painting)}
-                content={painting}
-              />
-            </Grid>
-          )
-        )}
+        {allProducts.map((painting) => (
+          <Grid
+            item
+            lg={3}
+            md={4}
+            sm={6}
+            xs={12}
+            className={classes.gridItemStyle}
+          >
+            <PaintingCard2
+              onClick={(_) => showProductDetails(painting)}
+              content={painting}
+            />
+          </Grid>
+        ))}
         <Grid xs={12}>
           <Box display="flex" justifyContent="flex-end" px={3} py={2}>
             <Pagination
@@ -107,17 +105,18 @@ function BuyArtProducts({
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
+    allProducts: state.products.allProducts,
     artListingAll: state.artListing.all,
     artListingMasterpiece: state.artListing.masterpiece,
     artListingGeneral: state.artListing.general,
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchArtListingGeneral,
   fetchArtListingMasterpiece,
-  fetchSingleProduct
+  fetchSingleProduct,
 })(withRouter(BuyArtProducts));

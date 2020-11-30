@@ -98,7 +98,7 @@ function PaintingModal({ open, close, content, addToCart }) {
                       onClick={(_) => {
                         addToCart(content);
                         console.log(content);
-                        showSnackBar("Product added to Cart.", "success");
+                        showSnackBar("Product added to Cart", "success");
                       }}
                     >
                       <AddShoppingCartIcon />
@@ -107,16 +107,16 @@ function PaintingModal({ open, close, content, addToCart }) {
                   </div>
                   <Typography variant="body1">
                     <b>Price: </b>
-                    <span style={{ fontSize: "1.5rem" }}>
-                      Rs{content.price}
+                    <span style={{ fontSize: "1.2rem" }}>
+                      Rs {content.price}
                     </span>
                   </Typography>
                   <br />
-                  <Typography variant="body2">
-                    {content.description}
-                    <br />
-                    <br />
+                  <Typography variant="body1">
                     <b>Product Details</b>
+                    <br />
+                    <br />
+                    {content.description}
                     <br />
                   </Typography>
                 </Grid>

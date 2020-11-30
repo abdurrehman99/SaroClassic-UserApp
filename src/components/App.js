@@ -2,12 +2,7 @@ import React, { useEffect, Fragment, lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { Container } from "@material-ui/core";
-import {
-  NavBar,
-  Footer,
-  RegionSelectModal,
-  FullpageLoader,
-} from "./CommonComponents";
+import { NavBar, Footer, FullpageLoader } from "./CommonComponents";
 import {
   fetchArtListingAll,
   fetchArtist,
@@ -15,6 +10,7 @@ import {
   loadCart,
   currentStatusUser,
   getFeaturedProducts,
+  getAllProducts,
 } from "../redux/actions";
 import Success from "./Checkout/Success";
 import Failure from "./Checkout/Failure";
@@ -45,35 +41,31 @@ function App({
   fetchArtListingAll,
   fetchArtist,
   getFeaturedProducts,
+  getAllProducts,
   loadCart,
   status,
   currentStatusUser,
 }) {
   useEffect(() => {
-    console.log(process.env.NODE_ENV);
     const token = localStorage.getItem("token");
     if (token) {
-      // let decodedUser = jwtDecode(token);
-      // console.log("==>", decodedUser);
       currentStatusUser(token);
     }
     getFeaturedProducts();
-    fetchArtListingAll();
-    fetchArtist();
+    getAllProducts();
     loadCart();
   }, []);
 
   return (
     <Container maxWidth="xl" style={{ padding: 0 }}>
       <BrowserRouter>
-        {/* <RegionSelectModal /> */}
         <NavBar />
         <Suspense fallback={<FullpageLoader />}>
           <Switch>
             <Route exact path="/" render={(props) => <Home {...props} />} />
             <Route
               exact
-              path="/buyart"
+              path="/allProducts"
               render={(props) => <BuyArt {...props} />}
             />
             <Route
@@ -217,4 +209,5 @@ export default connect(mapStateToProps, {
   loadCart,
   currentStatusUser,
   getFeaturedProducts,
+  getAllProducts,
 })(App);
