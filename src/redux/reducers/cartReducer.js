@@ -14,12 +14,16 @@ export const cartReducer = (
       const { items, total } = newCart;
       return { items, total };
     case "CART_ADD_PRODUCT":
-      newCart = state.items.filter((e) => e._id === payload._id).length
-        ? state
-        : {
-            items: [...state.items, payload],
-            total: state.total + payload.price,
-          };
+      // newCart = state.items.filter((e) => e._id === payload._id).length
+      //   ? state
+      //   : {
+      //       items: [...state.items, payload],
+      //       total: state.total + payload.price,
+      //     };
+      newCart = {
+        items: [...state.items, payload],
+        total: state.total + payload.price,
+      };
       localStorage.setItem("_tcar", jwtSign(newCart));
       return newCart;
     case "CART_REMOVE_PRODUCT":

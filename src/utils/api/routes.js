@@ -4,8 +4,8 @@ export const region = (short) => {
 };
 const SERVER_URL = "https://africanart-international-serve.herokuapp.com";
 
-const BASE_URL = "http://localhost:5000";
-// const BASE_URL = "https://saro-classic.herokuapp.com";
+// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://saro-classic.herokuapp.com";
 // const BASE_URL = "https://saroclassic-server.herokuapp.com";
 
 const USER_ROUTES = `${SERVER_URL}/user`;

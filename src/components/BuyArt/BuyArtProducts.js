@@ -6,6 +6,7 @@ import {
   PaintingCard,
   PaintingModal,
   FullpageLoader,
+  Card2Loading,
 } from "../CommonComponents";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -89,6 +90,9 @@ function BuyArtProducts({
             />
           </Grid>
         ))}
+        {!allProducts.length && <Card2Loading />}
+        {!allProducts.length && <Card2Loading />}
+        {!allProducts.length && <Card2Loading />}
         <Grid xs={12}>
           <Box display="flex" justifyContent="flex-end" px={3} py={2}>
             <Pagination
@@ -99,7 +103,6 @@ function BuyArtProducts({
             />
           </Box>
         </Grid>
-        {artListingAll.length === 0 && <FullpageLoader />}
       </Grid>
     </>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, Fragment, lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { Container } from "@material-ui/core";
-import { NavBar, Footer, FullpageLoader } from "./CommonComponents";
+import { NavBar, Footer } from "./CommonComponents";
 import {
   fetchArtListingAll,
   fetchArtist,
@@ -10,7 +10,6 @@ import {
   loadCart,
   currentStatusUser,
   getFeaturedProducts,
-  getAllProducts,
 } from "../redux/actions";
 import Success from "./Checkout/Success";
 import Failure from "./Checkout/Failure";
@@ -18,30 +17,29 @@ import PaypalAfterPayment from "./Checkout/PaypalAfterPayment";
 import Crypto from "./Checkout/Crypto";
 import jwtDecode from "jwt-decode";
 
-const Home = lazy(() => import("./Home"));
-const BuyArt = lazy(() => import("./BuyArt"));
-const Account = lazy(() => import("./Account"));
-const ListAndSell = lazy(() => import("./Account/ListAndSell"));
-const Auction = lazy(() => import("./Auction"));
-const AuctionProductPage = lazy(() => import("./Auction/AuctionProductPage"));
-const Reserve = lazy(() => import("./Reserve"));
-const ReserveProductPage = lazy(() => import("./Reserve/ReserveProductPage"));
-const Trading = lazy(() => import("./Trading"));
-const TradingProductPage = lazy(() => import("./Trading/TradingProductPage"));
-const Artists = lazy(() => import("./Artists"));
-const ArtistPage = lazy(() => import("./Artists/ArtistPage"));
-const BookNow = lazy(() => import("./Artists/BookNow"));
-const Signin = lazy(() => import("./Auth/Signin"));
-const Signup = lazy(() => import("./Auth/Signup"));
-const ForgotPassword = lazy(() => import("./Auth/ForgotPassword"));
-const NotFound = lazy(() => import("./NotFound"));
-const Search = lazy(() => import("./Search"));
-const Checkout = lazy(() => import("./Checkout"));
+import Home from "./Home";
+import BuyArt from "./BuyArt";
+import Account from "./Account";
+import ListAndSell from "./Account/ListAndSell";
+import Auction from "./Auction";
+import AuctionProductPage from "./Auction/AuctionProductPage";
+import Reserve from "./Reserve";
+import ReserveProductPage from "./Reserve/ReserveProductPage";
+import Trading from "./Trading";
+import TradingProductPage from "./Trading/TradingProductPage";
+import Artists from "./Artists";
+import ArtistPage from "./Artists/ArtistPage";
+import BookNow from "./Artists/BookNow";
+import Signin from "./Auth/Signin";
+import Signup from "./Auth/Signup";
+import ForgotPassword from "./Auth/ForgotPassword";
+import NotFound from "./NotFound";
+import Search from "./Search";
+import Checkout from "./Checkout";
 function App({
   fetchArtListingAll,
   fetchArtist,
   getFeaturedProducts,
-  getAllProducts,
   loadCart,
   status,
   currentStatusUser,
@@ -52,7 +50,7 @@ function App({
       currentStatusUser(token);
     }
     getFeaturedProducts();
-    getAllProducts();
+
     loadCart();
   }, []);
 
@@ -60,7 +58,7 @@ function App({
     <Container maxWidth="xl" style={{ padding: 0 }}>
       <BrowserRouter>
         <NavBar />
-        <Suspense fallback={<FullpageLoader />}>
+        <Suspense>
           <Switch>
             <Route exact path="/" render={(props) => <Home {...props} />} />
             <Route
@@ -209,5 +207,4 @@ export default connect(mapStateToProps, {
   loadCart,
   currentStatusUser,
   getFeaturedProducts,
-  getAllProducts,
 })(App);
