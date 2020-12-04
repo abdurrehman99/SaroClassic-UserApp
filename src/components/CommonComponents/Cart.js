@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   cardTotal: {
     display: "flex",
     padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   subTotal: {
     marginRight: theme.spacing(1),
@@ -177,6 +177,15 @@ function Cart({
             Subtotal : Rs <b>{cart.total}</b>
           </Typography>
         </Card>
+        {cart.items.length ? (
+          <Typography
+            variant="body2"
+            style={{ padding: "5px", fontSize: 13, marginBottom: 5 }}
+          >
+            *Delivery Charges will be added at Checkout
+          </Typography>
+        ) : null}
+
         <Button
           variant="contained"
           color="primary"
@@ -190,11 +199,6 @@ function Cart({
         >
           Checkout
         </Button>
-        {!cart.items.length ? (
-          <Typography variant="body2" style={{ color: "red", padding: "5px" }}>
-            *Cart is Empty !
-          </Typography>
-        ) : null}
       </div>
     </SwipeableDrawer>
   );
