@@ -59,18 +59,22 @@ function PaintingModal({ open, close, content, addToCart }) {
   };
 
   const selectSize = (s, i) => {
-    console.log(i);
-    setActiveSize(i);
-    setSize(s);
-    setSizeError(false);
+    if (i !== activeSize) {
+      console.log(i);
+      setActiveSize(i);
+      setSize(s);
+      setSizeError(false);
+    } else {
+      setActiveSize(null);
+    }
   };
 
   const fillCart = () => {
-    if (activeSize) {
-      setSizeError(false);
+    if (activeSize !== null) {
       addToCart({ ...content, size, quantity });
       console.log({ ...content, size, quantity });
       showSnackBar("Product added to Cart", "success");
+      setSizeError(false);
     } else {
       setSizeError(true);
     }
@@ -78,6 +82,7 @@ function PaintingModal({ open, close, content, addToCart }) {
 
   return (
     <div>
+      {console.log(sizeError)}
       <Modal
         className={classes.modal}
         open={open}
