@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
   Button,
+  ButtonGroup,
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import AliceCarousel from "react-alice-carousel";
@@ -33,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
     },
     overflow: "overlay",
   },
+  activeSize: {
+    backgroundColor: "lightGrey",
+  },
+  addToCartBtn: {
+    padding: 10,
+  },
   flex: {
     display: "flex",
     justifyContent: "space-between",
@@ -43,8 +50,30 @@ const useStyles = makeStyles((theme) => ({
 
 function PaintingModal({ open, close, content, addToCart }) {
   const classes = useStyles();
+  const [quantity, setQuantity] = useState(1);
+  const [activeSize, setActiveSize] = useState(null);
+  const [sizeError, setSizeError] = useState(false);
+  const [size, setSize] = useState("");
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const selectSize = (s, i) => {
+    console.log(i);
+    setActiveSize(i);
+    setSize(s);
+    setSizeError(false);
+  };
+
+  const fillCart = () => {
+    if (activeSize) {
+      setSizeError(false);
+      addToCart({ ...content, size, quantity });
+      console.log({ ...content, size, quantity });
+      showSnackBar("Product added to Cart", "success");
+    } else {
+      setSizeError(true);
+    }
   };
 
   return (
@@ -92,14 +121,11 @@ function PaintingModal({ open, close, content, addToCart }) {
                       <b>{content.name}</b>
                     </Typography>
                     <Button
+                      className={classes.addToCartBtn}
                       variant="contained"
                       color="primary"
                       size="small"
-                      onClick={(_) => {
-                        addToCart(content);
-                        console.log(content);
-                        showSnackBar("Product added to Cart", "success");
-                      }}
+                      onClick={fillCart}
                     >
                       <AddShoppingCartIcon />
                       Add To Cart
@@ -112,13 +138,54 @@ function PaintingModal({ open, close, content, addToCart }) {
                     </span>
                   </Typography>
                   <br />
-                  <Typography variant="body1">
+                  <Typography variant="body2">
                     <b>Product Details</b>
                     <br />
                     <br />
                     {content.description}
                     <br />
                   </Typography>
+                  <br />
+                  <Typography variant="body1">Size(s) Available</Typography>
+                  <ButtonGroup color="secondary">
+                    {JSON.parse(content.size).map((size, index) => (
+                      <Button
+                        className={
+                          index === activeSize ? classes.activeSize : null
+                        }
+                        onClick={() => selectSize(size, index)}
+                        key={index}
+                      >
+                        {size}
+                      </Button>
+                    ))}
+                  </ButtonGroup>
+                  {sizeError ? (
+                    <Typography
+                      variant="body2"
+                      style={{ color: "red", padding: 5 }}
+                    >
+                      *Please Select Size
+                    </Typography>
+                  ) : null}
+                  <Typography variant="body1">Quantity</Typography>
+                  <ButtonGroup color="secondary">
+                    <Button
+                      onClick={() =>
+                        quantity > 1 ? setQuantity(quantity - 1) : null
+                      }
+                    >
+                      <strong>-</strong>
+                    </Button>
+                    <Button>{quantity}</Button>
+                    <Button
+                      onClick={() =>
+                        quantity < 5 ? setQuantity(quantity + 1) : null
+                      }
+                    >
+                      <strong>+</strong>
+                    </Button>
+                  </ButtonGroup>
                 </Grid>
               </Grid>
             ) : null}

@@ -243,9 +243,12 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
         Home
       </Link>
       <Divider />
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/buyart">
+      <Link
+        className={`${classes.link} ${classes.linkMobile}`}
+        to="/allProducts"
+      >
         <ShoppingBasketOutlined className={classes.Icon} />
-        Buy Art
+        All Products
       </Link>
       <Divider />
       <Link

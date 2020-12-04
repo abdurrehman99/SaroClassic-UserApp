@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   list: {
-    width: 290,
+    width: 350,
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 2,
   },
   cardMedia: {
-    flex: 1,
+    flex: 1.2,
   },
   marginBottom: {
     marginBottom: theme.spacing(1),
@@ -149,7 +149,10 @@ function Cart({
               <CardContent className={classes.cardContent}>
                 <Typography variant="body2">{cartItem.name}</Typography>
                 <Typography variant="body2" color="secondary">
-                  ${cartItem.price}
+                  Rs {cartItem.price}
+                </Typography>
+                <Typography variant="body2" color="secondary">
+                  Quantity : {cartItem.quantity}
                 </Typography>
               </CardContent>
               <DeleteOutline
@@ -180,7 +183,10 @@ function Cart({
           size="small"
           fullWidth
           disabled={!cart.items.length}
-          onClick={() => history.push("/checkout")}
+          onClick={() => {
+            toggleDrawer(true);
+            history.push("/checkout");
+          }}
         >
           Checkout
         </Button>
