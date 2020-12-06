@@ -133,7 +133,7 @@ function Cart({
         <Typography variant="h5">Cart</Typography>
         <Divider className={classes.marginDivider} />
         <div className={classes.productList}>
-          {cart.items.map((cartItem) => (
+          {cart.items.map((cartItem, i) => (
             <Card
               className={`${classes.cardStyle} ${
                 cartItem.category === "masterpiece"

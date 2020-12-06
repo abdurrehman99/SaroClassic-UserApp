@@ -4,7 +4,6 @@ import { showSnackBarReducer } from "./showSnackBarReducer";
 import { artListingReducer } from "./artListingReducer";
 import { artistReducer } from "./artistReducer";
 import { cartReducer } from "./cartReducer";
-import { totalCartReducer } from "./totalCartReducer";
 import { searchReducer } from "./searchReducer";
 import { singleProductReducer } from "./singleProductReducer";
 import { regionSelectReducer } from "./regionSelectReducer";
@@ -21,7 +20,6 @@ export default combineReducers({
   artist: artistReducer,
   cart: cartReducer,
   products: productsReducer,
-  totalCart: totalCartReducer,
   searchResult: searchReducer,
   singleProduct: singleProductReducer,
   region: regionSelectReducer,

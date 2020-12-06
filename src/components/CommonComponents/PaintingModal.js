@@ -82,7 +82,6 @@ function PaintingModal({ open, close, content, addToCart }) {
 
   return (
     <div>
-      {console.log(sizeError)}
       <Modal
         className={classes.modal}
         open={open}
@@ -131,19 +130,29 @@ function PaintingModal({ open, close, content, addToCart }) {
                       color="primary"
                       size="small"
                       onClick={fillCart}
+                      disabled={content.outOfStock}
                     >
                       <AddShoppingCartIcon />
                       Add To Cart
                     </Button>
                   </div>
-                  <Typography variant="body1">
-                    <b>Price: </b>
-                    <span style={{ fontSize: "1.2rem" }}>
-                      Rs {content.price}
-                    </span>
-                  </Typography>
+                  <div className={classes.flex}>
+                    <Typography variant="body1">
+                      <b>Price: </b>
+                      <span style={{ fontSize: "1.2rem" }}>
+                        Rs {content.price}
+                      </span>
+                    </Typography>
+                    <Typography variant="body1">
+                      {content.outOfStock ? (
+                        <b style={{ color: "red" }}>OUT OF STOCK</b>
+                      ) : (
+                        <b style={{ color: "green" }}>IN STOCK</b>
+                      )}
+                    </Typography>
+                  </div>
                   <br />
-                  <Typography variant="body2">
+                  <Typography variant="body1">
                     <b>Product Details</b>
                     <br />
                     <br />
@@ -173,7 +182,7 @@ function PaintingModal({ open, close, content, addToCart }) {
                       *Please Select Size
                     </Typography>
                   ) : null}
-                  <Typography variant="body1">Quantity</Typography>
+                  <Typography variant="body2">Quantity</Typography>
                   <ButtonGroup color="secondary">
                     <Button
                       onClick={() =>

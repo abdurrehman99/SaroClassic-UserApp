@@ -21,6 +21,11 @@ function Media(props) {
         <Skeleton />
         <Skeleton width={150} />
       </Box>
+      <Box width={300} marginRight={5} my={5}>
+        <Skeleton variant="rect" width={300} height={150} />
+        <Skeleton />
+        <Skeleton width={150} />
+      </Box>
     </Grid>
   );
 }
