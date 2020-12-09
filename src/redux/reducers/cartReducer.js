@@ -13,6 +13,7 @@ export const cartReducer = (
       };
       const { items, total } = newCart;
       return { items, total };
+
     case "CART_ADD_PRODUCT":
       // newCart = state.items.filter((e) => e._id === payload._id).length
       //   ? state
@@ -20,19 +21,22 @@ export const cartReducer = (
       //       items: [...state.items, payload],
       //       total: state.total + payload.price,
       //     };
+
       newCart = {
         items: [...state.items, payload],
-        total: state.total + payload.price,
+        total: state.total + Number(payload.price) * Number(payload.quantity),
       };
       localStorage.setItem("_tcar", jwtSign(newCart));
       return newCart;
+
     case "CART_REMOVE_PRODUCT":
       newCart = {
-        items: state.items.filter((ele) => ele._id !== payload._id),
-        total: state.total - payload.price,
+        items: state.items.filter((item, i) => i !== payload.i),
+        total: state.total - payload.cartItem.price,
       };
       localStorage.setItem("_tcar", jwtSign(newCart));
       return newCart;
+
     case "CART_CLEAR":
       newCart = {
         items: [],
@@ -40,6 +44,7 @@ export const cartReducer = (
       };
       localStorage.setItem("_tcar", jwtSign(newCart));
       return newCart;
+
     default:
       return state;
   }

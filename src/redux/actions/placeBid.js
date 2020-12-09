@@ -4,17 +4,17 @@ import { ROUTES } from "../../utils/api/routes";
 
 const { ART_GET_AUCTION } = ROUTES;
 
-export const placeBid = (id, userId, amount) => async dispatch => {
+export const placeBid = (id, userId, amount) => async (dispatch) => {
   try {
     const response = await axios.put(`${ART_GET_AUCTION}/${id}`, {
       bids: {
         bidder: userId,
-        bid: amount
-      }
+        bid: amount,
+      },
     });
     dispatch({
       type: "ART_SINGLE_PRODUCT",
-      payload: response.data.result
+      payload: response.data.result,
     });
     showSnackBar(response.data.responseMessage, "success");
   } catch (e) {
@@ -23,4 +23,11 @@ export const placeBid = (id, userId, amount) => async dispatch => {
       "error"
     );
   }
+};
+
+export const closeModal = () => async (dispatch) => {
+  dispatch({
+    type: "CLOSE_MODAL",
+    payload: false,
+  });
 };

@@ -17,7 +17,7 @@ import { addToCart, removeFromCart, loadCart, clearCart } from "./cart";
 import { search } from "./search";
 import { fetchSingleProduct } from "./fetchSingleProduct";
 import { regionSelect } from "./regionSelect";
-import { placeBid } from "./placeBid";
+import { placeBid, closeModal } from "./placeBid";
 import { fetchSingleArtist } from "./fetchSingleArtist";
 import { fetchInbox, uploadAttachment } from "./inbox";
 import { buyEquityReserve } from "./buyEquityReserve";
@@ -59,4 +59,5 @@ export {
   userOrders,
   getFeaturedProducts,
   getAllProducts,
+  closeModal,
 };

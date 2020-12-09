@@ -10,6 +10,7 @@ import {
 } from "../CommonComponents";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  closeModal,
   fetchArtListingGeneral,
   fetchArtListingMasterpiece,
   fetchSingleProduct,
@@ -36,6 +37,7 @@ function BuyArtProducts({
   fetchArtListingMasterpiece,
   fetchSingleProduct,
   masterpiece,
+  redux,
   match: {
     params: { id },
   },
@@ -52,19 +54,10 @@ function BuyArtProducts({
       ? fetchArtListingMasterpiece(pageNo)
       : fetchArtListingGeneral(pageNo);
   };
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchSingleProduct(id);
-  //   }
-  // }, [id]);
-  // useEffect(() => {
-  //   if (singleProduct._id && id) {
-  //     showProductDetails(singleProduct);
-  //   }
-  // }, [singleProduct._id]);
-  // useEffect(() => {
-  //   masterpiece ? fetchArtListingMasterpiece() : fetchArtListingGeneral();
-  // }, [masterpiece]);
+  useEffect(() => {
+    setModalOpen(false);
+    console.log("close modal===>", redux);
+  }, [redux]);
   return (
     <>
       <PaintingModal
@@ -115,6 +108,8 @@ const mapStateToProps = (state) => {
     artListingMasterpiece: state.artListing.masterpiece,
     artListingGeneral: state.artListing.general,
     singleProduct: state.singleProduct,
+    modal: state.modal,
+    redux: state,
   };
 };
 

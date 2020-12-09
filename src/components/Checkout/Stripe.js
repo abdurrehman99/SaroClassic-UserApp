@@ -1,67 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { logoA } from "../../utils/contentConstants";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
-import { ImageDivBackground } from "../CommonComponents";
+import { ImageDivBackground, showSnackBar } from "../CommonComponents";
 import { useHistory } from "react-router-dom";
-import { addOrder } from "../../redux/actions";
-import { jwtVerify } from "../../utils/jwt";
-import { ROUTES } from "../../utils/api/routes";
+import { clearCart } from "../../redux/actions";
+import { ROUTES, STRIPE_KEY } from "../../utils/api/routes";
 import axios from "axios";
 
-function Stripe({ cart: { total } }) {
+function Stripe({ cart, user, clearCart }) {
   const history = useHistory();
+  let order = {
+    cart,
+    UserId: user._id,
+    status: "PENDING",
+    paymentMethod: "STRIPE",
+    totalBill: cart.total,
+  };
   const handleToken = async (token) => {
-    // console.log(token);
-    // history.push("/success");
+    console.log(token);
+
     try {
-      const charge = await axios.post(ROUTES.PAYMENT_STRIPE_CAPTURE_URL, {
-        payment: {
-          amount: parseFloat(total),
-          currency: "usd",
-          source: token.id,
-          description: "Payment",
-        },
+      const charge = await axios.post(ROUTES.PAYMENT_STRIPE, {
+        token,
+        amount: cart.total,
       });
-      const tokenData = localStorage.getItem("infoCh");
-      if (tokenData) {
-        const data = jwtVerify(tokenData);
-        const response = await addOrder(charge.id, "stripe", data);
-        history.push("/success");
-      }
+      console.log(charge);
+      const response = await axios.post(ROUTES.NEW_ORDER, { order });
+      showSnackBar("Your order has been placed !", "success");
+      history.push("/");
+      clearCart();
     } catch (e) {
-      // console.log(e);
-      history.push("/failure");
+      console.log(e);
+      showSnackBar("Fail to process your order", "error");
+      history.push("/checkout");
     }
   };
 
   return (
-    <StripeCheckout
-      // label="Pay with Stripe" //Component button text
-      panelLabel="Pay" //Submit button in modal
-      amount={parseFloat(total) * 100} //Amount in cents $9.99
-      image={logoA} // the pop-in header image (default none)
-      token={handleToken}
-      stripeKey="pk_test_TCJj0CFaEacU4W6OZmr8Bwxl00scEx4ZIT"
-    >
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ width: "200px", margin: "5px" }}
+    <>
+      <StripeCheckout
+        name="Saro Classic"
+        amount={parseFloat(cart.total)} //Amount in cents $9.99
+        image={logoA} // the pop-in header image (default none)
+        token={handleToken}
+        stripeKey={STRIPE_KEY}
+        email={user.email}
       >
-        {/* <img src={require("../../assets/icons/stripe.png")} width="20px" /> */}
-        <ImageDivBackground
-          image={require("../../assets/icons/stripe.png")}
-          width="20px"
-          height="20px"
-          borderRadius="5px"
-          style={{ marginRight: "10px" }}
-        />
-        Pay With Stripe
-      </Button>
-    </StripeCheckout>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ width: "200px", margin: "5px" }}
+        >
+          <ImageDivBackground
+            image={require("../../assets/icons/stripe.png")}
+            width="25px"
+            height="25px"
+            borderRadius="5px"
+            style={{ marginRight: "10px" }}
+          />
+          Pay With Stripe
+        </Button>
+      </StripeCheckout>
+    </>
   );
 }
-const mapStateToProps = ({ cart }) => ({ cart });
-export default connect(mapStateToProps)(Stripe);
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+    user: state.currentUser.user,
+  };
+};
+export default connect(mapStateToProps, { clearCart })(Stripe);

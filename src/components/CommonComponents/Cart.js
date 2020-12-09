@@ -157,7 +157,7 @@ function Cart({
               </CardContent>
               <DeleteOutline
                 onClick={() => {
-                  removeFromCart(cartItem);
+                  removeFromCart({ cartItem, i });
                   showSnackBar("Item Removed.", "success");
                 }}
                 className={classes.deleteIcon}
@@ -197,7 +197,7 @@ function Cart({
             history.push("/checkout");
           }}
         >
-          Checkout
+          Go to Checkout
         </Button>
       </div>
     </SwipeableDrawer>

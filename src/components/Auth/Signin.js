@@ -110,7 +110,7 @@ function Signin({ setCurrentUser, status, history: { goBack, action, push } }) {
         localStorage.setItem("token", token);
         setCurrentUser(response.data.user);
         setLoading(false);
-        showSnackBar("User Logged Logged In !", "success");
+        showSnackBar("User Logged In !", "success");
 
         action === "PUSH" ? goBack() : push("/");
       } catch (e) {

@@ -6,23 +6,18 @@ import Skeleton from "@material-ui/lab/Skeleton";
 function Media(props) {
   return (
     <Grid container>
-      <Box width={300} marginRight={5} my={5}>
-        <Skeleton variant="rect" width={300} height={150} />
+      <Box width={300} marginLeft={5} marginRight={5} my={5}>
+        <Skeleton variant="rect" width={300} height={200} />
         <Skeleton />
         <Skeleton width={150} />
       </Box>
-      <Box width={300} marginRight={5} my={5}>
-        <Skeleton variant="rect" width={300} height={150} />
+      <Box width={300} marginLeft={5} marginRight={5} my={5}>
+        <Skeleton variant="rect" width={300} height={200} />
         <Skeleton />
         <Skeleton width={150} />
       </Box>
-      <Box width={300} marginRight={5} my={5}>
-        <Skeleton variant="rect" width={300} height={150} />
-        <Skeleton />
-        <Skeleton width={150} />
-      </Box>
-      <Box width={300} marginRight={5} my={5}>
-        <Skeleton variant="rect" width={300} height={150} />
+      <Box width={300} marginLeft={5} marginRight={5} my={5}>
+        <Skeleton variant="rect" width={300} height={200} />
         <Skeleton />
         <Skeleton width={150} />
       </Box>

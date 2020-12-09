@@ -8,6 +8,8 @@ const SERVER_URL = "https://africanart-international-serve.herokuapp.com";
 const BASE_URL = "https://saro-classic.herokuapp.com";
 // const BASE_URL = "https://saroclassic-server.herokuapp.com";
 
+export const STRIPE_KEY = "pk_test_V086ENyvmzdzrDr3hZB3I5hI006Pgfs0TM";
+
 const USER_ROUTES = `${SERVER_URL}/user`;
 const ART_ROUTES = `${SERVER_URL}/arts`;
 const ART_CATEGORY_ROUTES = `${ART_ROUTES}${region()}&category=`;
@@ -27,8 +29,11 @@ export const ROUTES = {
   FEATURED_PRODUCTS: `${BASE_URL}/products/featured`,
   ALL_PRODUCTS: `${BASE_URL}/products/all`,
 
-  //Category Routes
+  //Order Routes
+  PAYMENT_STRIPE: `${BASE_URL}/orders/stripe`,
+  NEW_ORDER: `${BASE_URL}/orders/new`,
 
+  ///////////////////////////
   USER_VERIFY: `${USER_ROUTES}/verify`,
 
   USER_GET_ORDERS: `${USER_ROUTES}/order`,

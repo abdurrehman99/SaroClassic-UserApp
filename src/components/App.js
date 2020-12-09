@@ -14,8 +14,6 @@ import {
 import Success from "./Checkout/Success";
 import Failure from "./Checkout/Failure";
 import PaypalAfterPayment from "./Checkout/PaypalAfterPayment";
-import Crypto from "./Checkout/Crypto";
-import jwtDecode from "jwt-decode";
 
 import Home from "./Home";
 import BuyArt from "./BuyArt";
@@ -165,11 +163,6 @@ function App({
               exact
               path="/failure"
               render={(props) => <Failure {...props} />}
-            />
-            <Route
-              exact
-              path="/paywithcrypto"
-              render={(props) => <Crypto {...props} />}
             />
             {status === "loggedIn" && (
               <Fragment>

@@ -12,6 +12,7 @@ import { inboxReducer } from "./inboxReducer";
 import { userOrdersReducer } from "./userOrdersReducer";
 import { productsReducer } from "./productsReducer";
 import { categoryReducer } from "./categoryReducer";
+import { modalReducer } from "./modalReducer";
 
 export default combineReducers({
   currentUser: currentUserReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   inbox: inboxReducer,
   userOrders: userOrdersReducer,
   categories: categoryReducer,
+  modal: modalReducer,
 });

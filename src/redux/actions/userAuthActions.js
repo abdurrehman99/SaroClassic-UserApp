@@ -25,7 +25,7 @@ export const currentStatusUser = (token) => async (dispatch) => {
     dispatch(setCurrentUser(response.data.user));
   } catch (error) {
     console.log("token not found ==> logout user", error.response);
-    showSnackBar("Session Expired !", "error");
     dispatch(logoutUser());
+    showSnackBar("Session Expired !", "error");
   }
 };

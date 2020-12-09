@@ -13,6 +13,7 @@ import {
   Box,
   TextField,
   InputAdornment,
+  Link,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import {
@@ -31,9 +32,8 @@ import {
 } from "../CommonComponents";
 import { fieldValidate } from "../../utils/formValidation";
 import Stripe from "./Stripe";
-import Paypal from "./Paypal";
 import { jwtSign } from "../../utils/jwt";
-import { CryptoButton } from "./Crypto";
+import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,18 +100,23 @@ const useStyles = makeStyles((theme) => ({
     flex: 2,
   },
   cardMedia: {
-    flex: 1,
+    height: 160,
   },
   marginBottom: {
     marginBottom: theme.spacing(1),
   },
   cardTotal: {
-    display: "flex",
+    // display: "flex",
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   subTotal: {
     marginRight: theme.spacing(1),
+  },
+  checkoutBtn: {
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(0.8),
+    fontSize: "1.2rem",
   },
   marginDivider: {
     margin: theme.spacing(2, 0),
@@ -159,42 +164,46 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
 
   const gotoStep2 = (e) => {
     e.preventDefault();
-    const data = {
-      fullName,
-      email,
-      address,
-      country,
-      contact,
-      ...(status === "loggedIn"
-        ? { accountType: "user", id: user._id }
-        : { accountType: "guest" }),
-      total: cart.total,
-      cartItems: JSON.stringify(cart.items),
-    };
+    console.log("==>", email, fullName, address, contact);
+    if (email && fullName && address && contact) {
+      setStep(2);
+    } else showSnackBar("Please fill the required information", "warning");
+
+    // const data = {
+    //   fullName,
+    //   email,
+    //   address,
+    //   country,
+    //   contact,
+    //   ...(status === "loggedIn"
+    //     ? { accountType: "user", id: user._id }
+    //     : { accountType: "guest" }),
+    //   total: cart.total,
+    //   cartItems: JSON.stringify(cart.items),
+    // };
     // console.log(data);
-    localStorage.setItem("infoCh", jwtSign(data));
-    setStep(2);
+    // localStorage.setItem("infoCh", jwtSign(data));
   };
 
-  // useEffect(() => {
-  //   if (!cart.items.length) {
-  //     setStep(1);
-  //   }
-  // }, [cart.items]);
+  useEffect(() => {
+    if (!cart.items.length) {
+      setStep(1);
+    }
+  }, [cart.items]);
 
   useEffect(() => {
-    if (status === "loggedIn") {
+    if (user) {
       setFullName(user.name);
       setEmail(user.email);
-      if (user.shippingAddress) {
-        setAddress(user.shippingAddress);
-      }
-      if (user.country) {
-        setCountry(user.country);
-      }
-      if (user.contact) {
-        setContact(user.contact);
-      }
+      setAddress(user.shippingAddress);
+      setCountry(user.country);
+      setContact(user.contact);
+    } else {
+      setFullName("");
+      setEmail("");
+      setAddress("");
+      setCountry("");
+      setContact("");
     }
   }, [status, user]);
 
@@ -203,7 +212,7 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
       return (
         <form onSubmit={gotoStep2}>
           <Grid container className={classes.container} justify="space-around">
-            <Grid item md={5} xs={12} className={classes.gridItem}>
+            <Grid item md={4} xs={12} className={classes.gridItem}>
               <Typography variant="h5">Information</Typography>
               <Divider className={classes.marginDivider} />
               <TextField
@@ -213,7 +222,11 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 margin="dense"
                 fullWidth
                 value={fullName}
-                // onChange={({ target: { value } }) => setFullName(value)}
+                onChange={
+                  status == "loggedOut"
+                    ? ({ target: { value } }) => setFullName(value)
+                    : null
+                }
               />
               <TextField
                 size="small"
@@ -223,7 +236,11 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 type="email"
                 fullWidth
                 value={email}
-                // onChange={({ target: { value } }) => setEmail(value)}
+                onChange={
+                  status == "loggedOut"
+                    ? ({ target: { value } }) => setEmail(value)
+                    : null
+                }
               />
               <TextField
                 size="small"
@@ -246,6 +263,11 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                     margin="dense"
                     fullWidth
                     value={contact}
+                    onChange={
+                      status == "loggedOut"
+                        ? ({ target: { value } }) => setContact(value)
+                        : null
+                    }
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">+92</InputAdornment>
@@ -257,7 +279,7 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
             </Grid>
             <Grid
               item
-              md={3}
+              md={4}
               xs={12}
               className={`${classes.gridItem} ${classes.gridItemCart}`}
             >
@@ -265,7 +287,7 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                 <Typography variant="h5">Cart</Typography>
                 <Divider className={classes.marginDivider} />
                 <div className={classes.productList}>
-                  {cart.items.map((cartItem) => (
+                  {cart.items.map((cartItem, i) => (
                     <Card
                       className={`${classes.cardStyle} ${
                         cartItem.category === "masterpiece"
@@ -274,19 +296,23 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                       }`}
                       raised
                     >
-                      <CardMedia
-                        image={cartItem.images[0]}
+                      <img
+                        src={cartItem.images[0]}
                         className={classes.cardMedia}
+                        alt=""
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography variant="body2">{cartItem.name}</Typography>
                         <Typography variant="body2" color="secondary">
                           Rs {cartItem.price}
                         </Typography>
+                        <Typography variant="body2" color="secondary">
+                          Quantity : {cartItem.quantity}
+                        </Typography>
                       </CardContent>
                       <DeleteOutline
                         onClick={() => {
-                          removeFromCart(cartItem);
+                          removeFromCart({ cartItem, i });
                           showSnackBar("Item Removed.", "success");
                         }}
                         className={classes.deleteIcon}
@@ -297,13 +323,13 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                     </Card>
                   ))}
                   {cart.items.length === 0 && (
-                    <Typography variant="body1">Cart is empty.</Typography>
+                    <Typography variant="body1">Your Cart is empty</Typography>
                   )}
                 </div>
               </div>
             </Grid>
             <Grid item md={3} xs={12} className={classes.gridItem}>
-              <Typography variant="h5">Shipping & Billing</Typography>
+              <Typography variant="h5">Order Summary</Typography>
               <Divider className={classes.marginDivider} />
               <Box className={classes.detailItemStyle}>
                 <Person fontSize="small" />
@@ -337,19 +363,28 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
               </Box>
               <Divider className={classes.marginDivider} />
               <Card className={classes.cardTotal} raised>
-                <Typography variant="body2" className={classes.subTotal}>
-                  Subtotal: <b>Rs {cart.total}</b>
+                <Typography variant="body1" className={classes.subTotal}>
+                  Subtotal: <b>PKR {cart.total}</b>
                 </Typography>
-                {/* <Typography variant="body2" color="secondary">
-            *Shipping Charges will be added at checkout.
-          </Typography> */}
+
+                {cart.length > 0 && (
+                  <Typography variant="body1" className={classes.subTotal}>
+                    Shipping Charges: <b>PKR 150</b>
+                  </Typography>
+                )}
               </Card>
+              {cart.length > 0 && (
+                <Typography variant="h6" className={{}}>
+                  ORDER TOTAL : PKR {cart.total + 150}
+                </Typography>
+              )}
               <Button
                 variant="contained"
                 color="primary"
                 size="small"
                 type="submit"
                 fullWidth
+                className={classes.checkoutBtn}
                 disabled={!cart.items.length}
               >
                 Checkout
@@ -375,8 +410,15 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
             </Typography>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Stripe />
-              <Paypal />
-              <CryptoButton />
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: "200px", margin: "5px" }}
+                onClick={() => {}}
+              >
+                <LocalAtmIcon />
+                Cash On Delivery
+              </Button>
               <Button
                 variant="contained"
                 className={classes.buttonStyle}

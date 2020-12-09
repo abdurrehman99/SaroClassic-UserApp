@@ -8,17 +8,6 @@ import {
   Card2Loading,
 } from "../CommonComponents";
 
-// const useStyles = makeStyles(theme => ({
-//   marginTop: {
-//     margin: 0,
-//     marginTop: theme.spacing(3)
-//   },
-//   itemStyle: {
-//     display: "flex",
-//     justifyContent: "center"
-//   }
-// }));
-
 export default function PaintingGrid({ products }) {
   // const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
