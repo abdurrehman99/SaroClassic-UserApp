@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(1),
     position: "relative",
-    paddingLeft: theme.spacing(2),
     cursor: "pointer",
   },
   grid: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItem: {
     padding: theme.spacing(1),
-    height: "100px",
+    // height: "100px",
   },
   categoryOverlay: {
     position: "absolute",
@@ -38,22 +37,11 @@ const useStyles = makeStyles((theme) => ({
 export default function OrderHistoryItemCard({ content }) {
   const classes = useStyles();
   const history = useHistory();
-
   return content ? (
-    <Paper
-      className={classes.card}
-      elevation={5}
-      onClick={() => {
-        history.push(
-          `/${content.category === "general" ? "buyart" : content.category}/${
-            content._id
-          }`
-        );
-      }}
-    >
+    <Paper className={classes.card} elevation={3} onClick={() => {}}>
       <Box className={classes.categoryOverlay}>
         <Typography variant="caption">
-          <b>{content.category.toUpperCase()}</b>
+          {/* <b>{content.category.toUpperCase()}</b> */}
         </Typography>
       </Box>
       <Grid container className={classes.grid}>
@@ -62,7 +50,7 @@ export default function OrderHistoryItemCard({ content }) {
             style={{
               height: "100%",
               width: "100%",
-              backgroundImage: `url(${content.img[0]})`,
+              backgroundImage: `url(${content.images[0]})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               borderRadius: "5px",
@@ -73,29 +61,21 @@ export default function OrderHistoryItemCard({ content }) {
         <Grid item xs={10} className={classes.gridItem}>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="body1">
-              <b>{content.title}</b>
+              <b>{content.name}</b>
             </Typography>
             <Typography variant="body1">
-              <b>${content.price} </b>x1
+              <b>PKR {content.price} </b>
+            </Typography>
+            <Typography variant="body2">
+              {content.size} x {content.quantity}
             </Typography>
           </Box>
           <Box height="55px" overflow="hidden">
             <Typography variant="body2">
-              {content.description.split(" ").slice(0, 25).join(" ") + "..."}
+              {content.description.split(" ").slice(0, 15).join(" ") + "..."}
             </Typography>
           </Box>
         </Grid>
-        {/* <Grid
-          item
-          xs={2}
-          className={classes.gridItem}
-          style={{ display: "flex" }}
-          justify="flex-end"
-        >
-          <Typography variant="body1">
-            <b>${content.price} </b>x1
-          </Typography>
-        </Grid> */}
       </Grid>
     </Paper>
   ) : (

@@ -32,11 +32,10 @@ export const ROUTES = {
   //Order Routes
   PAYMENT_STRIPE: `${BASE_URL}/orders/stripe`,
   NEW_ORDER: `${BASE_URL}/orders/new`,
+  USER_GET_ORDERS: `${BASE_URL}/orders/singleUserOrders?id=`,
 
   ///////////////////////////
   USER_VERIFY: `${USER_ROUTES}/verify`,
-
-  USER_GET_ORDERS: `${USER_ROUTES}/order`,
 
   //ForgotPassword
   USER_FORGOT_SEND_CODE: `${USER_ROUTES}/sendCode`,

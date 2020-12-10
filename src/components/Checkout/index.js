@@ -24,7 +24,7 @@ import {
   Person,
 } from "@material-ui/icons";
 import { ROUTES } from "../../utils/api/routes";
-import { removeFromCart } from "../../redux/actions";
+import { clearCart, removeFromCart } from "../../redux/actions";
 import {
   CountryPicker,
   showSnackBar,
@@ -34,6 +34,9 @@ import { fieldValidate } from "../../utils/formValidation";
 import Stripe from "./Stripe";
 import { jwtSign } from "../../utils/jwt";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
+import axios from "axios";
+import sweetAlert from "sweetalert";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -153,7 +156,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Checkout({ cart, removeFromCart, status, user, type }) {
+function Checkout({ cart, removeFromCart, status, user, clearCart }) {
+  const history = useHistory();
+
   const classes = useStyles();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -162,27 +167,41 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
   const [contact, setContact] = useState("");
   const [step, setStep] = useState(1);
 
+  const cashOnDelivery = async () => {
+    let order = {
+      cart: cart.items,
+      status: "PENDING",
+      paymentMethod: "COD",
+      totalBill: cart.total + 150,
+    };
+    user && user._id
+      ? (order["UserId"] = user._id)
+      : (order["UserId"] = "WALK-IN CUSTOMER");
+
+    order["shippingAddress"] = address;
+    try {
+      const response = await axios.post(ROUTES.NEW_ORDER, { order });
+      history.push("/");
+      sweetAlert({
+        title: "Order Has been placed !",
+        text: "Your Order can be tracked in Orders History",
+        icon: "success",
+        closeOnClickOutside: false,
+      });
+      clearCart();
+    } catch (e) {
+      console.log(e);
+      showSnackBar("Fail to process your order", "error");
+      setStep(1);
+    }
+  };
+
   const gotoStep2 = (e) => {
     e.preventDefault();
     console.log("==>", email, fullName, address, contact);
     if (email && fullName && address && contact) {
       setStep(2);
     } else showSnackBar("Please fill the required information", "warning");
-
-    // const data = {
-    //   fullName,
-    //   email,
-    //   address,
-    //   country,
-    //   contact,
-    //   ...(status === "loggedIn"
-    //     ? { accountType: "user", id: user._id }
-    //     : { accountType: "guest" }),
-    //   total: cart.total,
-    //   cartItems: JSON.stringify(cart.items),
-    // };
-    // console.log(data);
-    // localStorage.setItem("infoCh", jwtSign(data));
   };
 
   useEffect(() => {
@@ -268,6 +287,9 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                         ? ({ target: { value } }) => setContact(value)
                         : null
                     }
+                    inputProps={{
+                      maxLength: 10,
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">+92</InputAdornment>
@@ -367,13 +389,13 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
                   Subtotal: <b>PKR {cart.total}</b>
                 </Typography>
 
-                {cart.length > 0 && (
+                {cart.items.length > 0 && (
                   <Typography variant="body1" className={classes.subTotal}>
                     Shipping Charges: <b>PKR 150</b>
                   </Typography>
                 )}
               </Card>
-              {cart.length > 0 && (
+              {cart.items.length > 0 && (
                 <Typography variant="h6" className={{}}>
                   ORDER TOTAL : PKR {cart.total + 150}
                 </Typography>
@@ -409,12 +431,16 @@ function Checkout({ cart, removeFromCart, status, user, type }) {
               Payment
             </Typography>
             <Box display="flex" flexDirection="column" alignItems="center">
-              <Stripe />
+              <Stripe
+                setStep={setStep}
+                shippingAddress={address}
+                email={email}
+              />
               <Button
                 variant="contained"
                 color="primary"
                 style={{ width: "200px", margin: "5px" }}
-                onClick={() => {}}
+                onClick={() => cashOnDelivery()}
               >
                 <LocalAtmIcon />
                 Cash On Delivery
@@ -441,4 +467,6 @@ const mapStateToProps = ({ cart, currentUser: { status, user } }) => ({
   user,
 });
 
-export default connect(mapStateToProps, { removeFromCart })(Checkout);
+export default connect(mapStateToProps, { removeFromCart, clearCart })(
+  Checkout
+);

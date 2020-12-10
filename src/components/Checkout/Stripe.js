@@ -8,33 +8,44 @@ import { useHistory } from "react-router-dom";
 import { clearCart } from "../../redux/actions";
 import { ROUTES, STRIPE_KEY } from "../../utils/api/routes";
 import axios from "axios";
+import sweetAlert from "sweetalert";
 
-function Stripe({ cart, user, clearCart }) {
+function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
   const history = useHistory();
   let order = {
-    cart,
-    UserId: user._id,
+    cart: cart.items,
     status: "PENDING",
     paymentMethod: "STRIPE",
-    totalBill: cart.total,
+    totalBill: cart.total + 150,
   };
+  user && user._id
+    ? (order["UserId"] = user._id)
+    : (order["UserId"] = "WALK-IN CUSTOMER");
+
+  order["shippingAddress"] = shippingAddress;
+
   const handleToken = async (token) => {
-    console.log(token);
+    // console.log(token);
 
     try {
       const charge = await axios.post(ROUTES.PAYMENT_STRIPE, {
         token,
-        amount: cart.total,
+        amount: cart.total + 150,
       });
       console.log(charge);
       const response = await axios.post(ROUTES.NEW_ORDER, { order });
-      showSnackBar("Your order has been placed !", "success");
       history.push("/");
+      sweetAlert({
+        title: "Order Has been placed !",
+        text: "Your Order can be tracked in Orders History",
+        icon: "success",
+        closeOnClickOutside: false,
+      });
       clearCart();
     } catch (e) {
       console.log(e);
       showSnackBar("Fail to process your order", "error");
-      history.push("/checkout");
+      setStep(1);
     }
   };
 
@@ -46,7 +57,7 @@ function Stripe({ cart, user, clearCart }) {
         image={logoA} // the pop-in header image (default none)
         token={handleToken}
         stripeKey={STRIPE_KEY}
-        email={user.email}
+        email={user && user.email ? user.email : email}
       >
         <Button
           variant="contained"

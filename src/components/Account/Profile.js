@@ -6,7 +6,6 @@ import {
   Grid,
   InputAdornment,
 } from "@material-ui/core";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { fieldValidate } from "../../utils/formValidation";
 import { makeStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
@@ -28,6 +27,10 @@ function Profile({ user, updateProfile }) {
     error: false,
     helperText: "",
   });
+  const [addressError, setAddressError] = useState({
+    error: false,
+    helperText: "",
+  });
 
   useEffect(() => {
     if (user) {
@@ -45,7 +48,11 @@ function Profile({ user, updateProfile }) {
   const onSubmit = () => {
     let result = fieldValidate(contact, "contact");
     setContactError(result);
-    if (result.error === false) {
+    if (result.error === false && shippingAddress.length > 10) {
+      setAddressError({
+        error: false,
+        helperText: "",
+      });
       updateProfile({
         email: user.email,
         name: fullName,
@@ -53,6 +60,11 @@ function Profile({ user, updateProfile }) {
         shippingAddress,
       });
       setDisabled(true);
+    } else {
+      setAddressError({
+        error: true,
+        helperText: "Please Enter valid address !",
+      });
     }
   };
   return (
@@ -99,6 +111,8 @@ function Profile({ user, updateProfile }) {
             inputProps={{
               maxLength: 40,
             }}
+            error={addressError.error}
+            helperText={addressError.helperText}
             value={shippingAddress}
             onChange={(e) => {
               setAddress(e.target.value);

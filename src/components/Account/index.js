@@ -59,7 +59,7 @@ function Account({ user, location: { state } }) {
       // subItems: ["Profile", "Address Book", "Payment Methods"],
     },
     "Order History",
-    "Security & Privacy",
+    "Privacy",
   ];
   const [currentSection, setCurrentSection] = useState(
     sectionList[0].subItems[0]

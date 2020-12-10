@@ -4,10 +4,11 @@ import OrderHistoryItem from "./OrderHistoryItem";
 import { connect } from "react-redux";
 import { userOrders } from "../../redux/actions";
 
-function OrderHistory({ userOrdersData, userOrders }) {
+function OrderHistory({ userOrdersData, userOrders, user }) {
   useEffect(() => {
-    userOrders();
+    userOrders(user._id);
   }, []);
+
   return (
     <Fragment>
       <Typography variant="h6">
@@ -20,6 +21,11 @@ function OrderHistory({ userOrdersData, userOrders }) {
   );
 }
 
-const mapStateToProps = ({ userOrders }) => ({ userOrdersData: userOrders });
+const mapStateToProps = (state) => {
+  return {
+    userOrdersData: state.userOrders,
+    user: state.currentUser.user,
+  };
+};
 
 export default connect(mapStateToProps, { userOrders })(OrderHistory);
