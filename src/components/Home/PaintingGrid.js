@@ -18,7 +18,7 @@ export default function PaintingGrid({ products }) {
   };
 
   return (
-    <Box paddingX={3} marginTop={3}>
+    <Box paddingX={0} marginTop={3}>
       <PaintingModal
         open={modalOpen}
         close={() => {

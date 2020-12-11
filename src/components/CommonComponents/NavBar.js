@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
     color: "black",
-    padding: "5px 15px",
+    padding: "0px 10px",
     fontFamily: "Muli",
   },
   flexLink: {
@@ -162,16 +162,6 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
             All Products
           </MenuItem>
         </Link>
-        {/* <Link className={classes.link} to="/masterpiece">
-          <MenuItem onClick={handleClose} className={classes.menuItem}>
-            Masterpieces
-          </MenuItem>
-        </Link>
-        <Link className={classes.link} to="/auction">
-          <MenuItem onClick={handleClose} className={classes.menuItem}>
-            Auction
-          </MenuItem>
-        </Link> */}
       </Menu>
       <Link className={classes.link} to="/reserve">
         Reserve

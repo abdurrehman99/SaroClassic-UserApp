@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchBar({ search, searchResult, history: { push } }) {
+function SearchBar({ search, products, history: { push } }) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const [displaySearchResult, setDisplaySearchResult] = useState(false);
@@ -104,7 +104,7 @@ function SearchBar({ search, searchResult, history: { push } }) {
         style={{ display: displaySearchResult ? "block" : "none" }}
       >
         <List>
-          {searchResult.length ? (
+          {products.length ? (
             <Fragment>
               <ListItem
                 className={classes.searchItem}
@@ -113,20 +113,20 @@ function SearchBar({ search, searchResult, history: { push } }) {
                 <ListItemText primary="See Full Result.." />
               </ListItem>
               <Divider />
-              {searchResult.slice(0, 3).map(({ _id, img, title, category }) => (
+              {products.slice(0, 3).map(({ _id, images, name, category }) => (
                 <ListItem
                   className={classes.searchItem}
-                  onMouseDown={() => searchItemClick(_id, category)}
+                  onMouseDown={() => searchItemClick(_id)}
                 >
                   <ListItemIcon>
                     <ImageDivBackground
-                      image={img[0]}
+                      image={images[0]}
                       width="40px"
                       height="40px"
                       className={classes.thumbnail}
                     />
                   </ListItemIcon>
-                  <ListItemText primary={title} secondary={category || "N/A"} />
+                  <ListItemText primary={name} />
                 </ListItem>
               ))}
             </Fragment>
@@ -144,6 +144,7 @@ function SearchBar({ search, searchResult, history: { push } }) {
 const mapStateToProps = (state) => {
   return {
     searchResult: state.searchResult,
+    products: state.products.allProducts,
   };
 };
 

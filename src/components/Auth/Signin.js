@@ -13,9 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { logo } from "../../utils/contentConstants";
-import { logoA } from "../../utils/contentConstants";
-import sideImage from "../../assets/authImages/sideImage.jpg";
+import sideImage from "../../assets/loginPage.jpeg";
 import { ROUTES } from "../../utils/api/routes";
 import { setCurrentUser } from "../../redux/actions";
 import { showSnackBar } from "../CommonComponents";

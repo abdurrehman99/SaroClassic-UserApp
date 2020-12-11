@@ -16,7 +16,7 @@ import { ROUTES } from "../../utils/api/routes";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { showSnackBar } from "../CommonComponents";
-import sideImage from "../../assets/authImages/sideImage.jpg";
+import sideImage from "../../assets/loginPage.jpeg";
 import { fieldValidate } from "../../utils/formValidation";
 
 const useStyles = makeStyles((theme) => ({

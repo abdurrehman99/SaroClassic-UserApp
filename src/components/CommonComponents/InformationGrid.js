@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainBox: {
     // backgroundColor: "#f6f6f6",
-    padding: "24px",
+    // padding: "24px",
     // [theme.breakpoints.up("sm")]: {
     // padding: "24px 80px",
     // padding: theme.s,
@@ -45,8 +45,6 @@ export default function InformationGrid({ content, reverse }) {
     <Box className={`${classes.mainBox} ${classes.marginTop}`}>
       <Grid container direction={reverse ? "row-reverse" : ""}>
         <Grid item md={6} sm={12} className={classes.gridFlex}>
-          {/* <Grid item md={6} sm={12}> */}
-          {/* <Box className={classes.marginRight}> */}
           <Typography variant="h3">{title}</Typography>
           <Typography variant="body1">{description}</Typography>
           {/* </Box> */}
