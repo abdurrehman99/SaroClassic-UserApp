@@ -21,7 +21,7 @@ function Home({ featuredProducts, artist }) {
 
   return (
     <Fragment>
-      <Jumbotron content={jumbotron} />
+      <Jumbotron height={400} content={jumbotron} />
       <div className={classes.mainDiv}>
         <PaintingGrid products={featuredProducts} />
         <InformationGrid content={historyAfricanArt} />

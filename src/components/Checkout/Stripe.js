@@ -36,7 +36,7 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
       const response = await axios.post(ROUTES.NEW_ORDER, { order });
       history.push("/");
       sweetAlert({
-        title: "Order Has been placed !",
+        title: `Order # ${response.data.orderNo} Has been placed !`,
         text: "Your Order can be tracked in Orders History",
         icon: "success",
         closeOnClickOutside: false,

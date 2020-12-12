@@ -163,7 +163,6 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [country, setCountry] = useState("");
   const [contact, setContact] = useState("");
   const [step, setStep] = useState(1);
 
@@ -182,8 +181,9 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
     try {
       const response = await axios.post(ROUTES.NEW_ORDER, { order });
       history.push("/");
+      console.log(response);
       sweetAlert({
-        title: "Order Has been placed !",
+        title: `Order # ${response.data.orderNo} Has been placed !`,
         text: "Your Order can be tracked in Orders History",
         icon: "success",
         closeOnClickOutside: false,
@@ -215,13 +215,11 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
       setFullName(user.name);
       setEmail(user.email);
       setAddress(user.shippingAddress);
-      setCountry(user.country);
       setContact(user.contact);
     } else {
       setFullName("");
       setEmail("");
       setAddress("");
-      setCountry("");
       setContact("");
     }
   }, [status, user]);
@@ -397,7 +395,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
               </Card>
               {cart.items.length > 0 && (
                 <Typography variant="h6" className={{}}>
-                  ORDER TOTAL : PKR {cart.total + 150}
+                  ORDER TOTAL : PKR <b>{cart.total + 150}</b>
                 </Typography>
               )}
               <Button

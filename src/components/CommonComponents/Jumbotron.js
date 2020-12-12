@@ -1,11 +1,11 @@
 import React from "react";
 import { Typography, Container, makeStyles, Box } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   mainDiv: {
     backgroundSize: "cover",
     backgroundPosition: "center",
-    height: "70vh"
+    height: "70vh",
   },
   innerDiv: {
     display: "flex",
@@ -13,8 +13,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    color: "white"
-  }
+    color: "white",
+  },
 }));
 
 export default function Jumbotron({ content, height }) {
@@ -26,7 +26,7 @@ export default function Jumbotron({ content, height }) {
       className={classes.mainDiv}
       style={{
         backgroundImage: `url(${imageURL})`,
-        ...(height ? { height } : null)
+        ...(height ? { height } : null),
       }}
       boxShadow={3}
     >

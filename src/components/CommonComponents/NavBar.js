@@ -13,7 +13,7 @@ import {
   Divider,
   Button,
   Icon,
-  Box,
+  Chip,
 } from "@material-ui/core";
 import {
   Menu as MenuIcon,
@@ -35,6 +35,7 @@ import Cart from "./Cart";
 import { SearchBar } from ".";
 import { logoutUser } from "../../redux/actions";
 import { logo } from "../../utils/contentConstants";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   menuButton: {
-    marginLeft: "2px",
+    marginLeft: "1px",
   },
   menuItem: {
     fontFamily: "Muli",
@@ -109,13 +110,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
+function NavBar({
+  cart,
+  history,
+  currentUser,
+  logoutUser,
+  location: { pathname },
+}) {
   const classes = useStyles();
+  const [fullName, setFullName] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
 
   let loggedIn = currentUser.status === "loggedIn";
+
+  useEffect(() => {
+    if (currentUser.user) {
+      setFullName(currentUser.user.name.split(" "));
+    }
+  }, [currentUser.user]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -137,94 +151,93 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
     setNavOpen(open);
   };
 
-  const navMenu = () => (
-    <>
-      <Link className={classes.link} to="/">
-        Home
-      </Link>
-      <Link
-        className={`${classes.link} ${classes.flexLink}`}
-        id="navShop"
-        onClick={handleClick}
-      >
-        Products
-        <ExpandMoreOutlined fontSize="small" />
-      </Link>
-      <Menu
-        id="navShop"
-        anchorEl={anchorEl}
-        keepMounted
-        open={anchorEl && anchorEl.getAttribute("id") === "navShop"}
-        onClose={handleClose}
-      >
-        <Link className={classes.link} to="/allProducts">
-          <MenuItem onClick={handleClose} className={classes.menuItem}>
-            All Products
-          </MenuItem>
+  const navMenu = () => {
+    return (
+      <>
+        <Link className={classes.link} to="/">
+          Home
         </Link>
-      </Menu>
-      <Link className={classes.link} to="/reserve">
-        Reserve
-      </Link>
-      <Link className={classes.link} to="/artists">
-        Services
-      </Link>
-      <Link className={classes.link} to="/trading">
-        Trading
-      </Link>
-      <Link
-        className={`${classes.link} ${classes.flexLink}`}
-        id="navAccount"
-        onClick={handleClick}
-      >
-        {loggedIn ? `Hi, ${currentUser.user.name}` : "Account"}
-        <ExpandMoreOutlined fontSize="small" />
-      </Link>
-      <Menu
-        id="navAccount"
-        anchorEl={anchorEl}
-        keepMounted
-        open={anchorEl && anchorEl.getAttribute("id") === "navAccount"}
-        onClose={handleClose}
-      >
-        {loggedIn ? (
-          <Link className={classes.link} to="/account">
+        <Link
+          className={`${classes.link} ${classes.flexLink}`}
+          id="navShop"
+          onClick={handleClick}
+        >
+          Products
+          <ExpandMoreOutlined fontSize="small" />
+        </Link>
+        <Menu
+          id="navShop"
+          anchorEl={anchorEl}
+          keepMounted
+          open={anchorEl && anchorEl.getAttribute("id") === "navShop"}
+          onClose={handleClose}
+        >
+          <Link className={classes.link} to="/allProducts">
             <MenuItem onClick={handleClose} className={classes.menuItem}>
-              Manage Account
+              All Products
             </MenuItem>
           </Link>
-        ) : (
-          <>
-            <Link className={classes.link} to="/signin">
+        </Menu>
+        <Link className={classes.link} to="/reserve">
+          Reserve
+        </Link>
+        <Link className={classes.link} to="/artists">
+          Services
+        </Link>
+        <Link
+          className={`${classes.link} ${classes.flexLink}`}
+          id="navAccount"
+          onClick={handleClick}
+        >
+          {loggedIn ? `Hi, ${fullName[0]}` : "Account"}
+          <ExpandMoreOutlined fontSize="small" />
+        </Link>
+        <Menu
+          id="navAccount"
+          anchorEl={anchorEl}
+          keepMounted
+          open={anchorEl && anchorEl.getAttribute("id") === "navAccount"}
+          onClose={handleClose}
+        >
+          {loggedIn ? (
+            <Link className={classes.link} to="/account">
               <MenuItem onClick={handleClose} className={classes.menuItem}>
-                Sign In
+                Manage Account
               </MenuItem>
             </Link>
-            <Link
-              className={classes.link}
-              to={loggedIn ? "/account" : "/signup"}
-            >
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
-                Sign Up
-              </MenuItem>
-            </Link>
-          </>
-        )}
+          ) : (
+            <>
+              <Link className={classes.link} to="/signin">
+                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                  Sign In
+                </MenuItem>
+              </Link>
+              <Link
+                className={classes.link}
+                to={loggedIn ? "/account" : "/signup"}
+              >
+                <MenuItem onClick={handleClose} className={classes.menuItem}>
+                  Sign Up
+                </MenuItem>
+              </Link>
+            </>
+          )}
 
-        {loggedIn && (
-          <MenuItem
-            onClick={() => {
-              logoutUser();
-              handleClose();
-            }}
-            className={classes.menuItem}
-          >
-            Logout
-          </MenuItem>
-        )}
-      </Menu>
-    </>
-  );
+          {loggedIn && (
+            <MenuItem
+              onClick={() => {
+                logoutUser();
+                handleClose();
+              }}
+              className={classes.menuItem}
+            >
+              Logout
+            </MenuItem>
+          )}
+        </Menu>
+      </>
+    );
+  };
 
   const navMobileMenu = () => (
     <>
@@ -263,11 +276,6 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
       <Link className={`${classes.link} ${classes.linkMobile}`} to="/artists">
         <BrushOutlined className={classes.Icon} />
         Services
-      </Link>
-      <Divider />
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/trading">
-        <SyncAltOutlined className={classes.Icon} />
-        Trading
       </Link>
       <Divider />
       {loggedIn ? (
@@ -372,15 +380,28 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
               <nav className={classes.mobileNav}>{navMobileMenu()}</nav>
             </div>
           </SwipeableDrawer>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={() => setOpenCart(true)}
-          >
-            <ShoppingCartOutlined />
-          </IconButton>
+          <div style={{ padding: "0 5px", position: "relative" }}>
+            {cart.length > 0 && (
+              <Chip
+                size="small"
+                variant="outlined"
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  zIndex: 100,
+                }}
+                label={cart.length}
+              />
+            )}
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setOpenCart(true)}
+            >
+              <ShoppingCartOutlined />
+            </IconButton>
+          </div>
         </Toolbar>
         <Hidden smUp>
           <Toolbar>
@@ -395,6 +416,7 @@ function NavBar({ history, currentUser, logoutUser, location: { pathname } }) {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
+    cart: state.cart.items,
   };
 };
 

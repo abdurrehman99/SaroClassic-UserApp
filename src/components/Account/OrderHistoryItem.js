@@ -32,7 +32,9 @@ export default function OrderHistoryItem({ content }) {
     <Paper className={classes.card} elevation={5}>
       <Box className={classes.cardTop}>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="body2">Order Number # {content._id}</Typography>
+          <Typography variant="body2">
+            Order Number # <b>{content.orderNo}</b>
+          </Typography>
           <Typography variant="body2">
             Total Amount: <b>{content.totalBill} PKR</b>
           </Typography>

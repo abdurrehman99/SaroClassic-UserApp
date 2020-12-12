@@ -86,7 +86,7 @@ function Profile({ user, updateProfile }) {
             value={fullName}
             onChange={(e) => {
               setFullName(e.target.value);
-              setDisabled(true);
+              setDisabled(false);
             }}
           />
         </Grid>

@@ -2,7 +2,7 @@
 import logoImage from "../assets/Logo.png";
 import logoAImage from "../assets/logo.png";
 //MainPage
-import coverHome from "../assets/coverImages/coverHome.jpg";
+import coverHome from "../assets/Home.jpg";
 
 import hi1 from "../assets/Clothing.jpeg";
 import hi3 from "../assets/Future.jpg";
@@ -51,9 +51,8 @@ export const logoA = logoAImage;
 
 export const homePageContent = {
   jumbotron: {
-    title: "We do art differently here!",
-    description:
-      "AfricanArt.International is an online platform that gives you access to exclusive art pieces from around the globe! ",
+    title: "We Provide Best Quality Clothing !",
+    description: "",
     imageURL: coverHome,
   },
   historyAfricanArt: {
@@ -61,7 +60,6 @@ export const homePageContent = {
     description:
       "We are trying our best to provide you the superb quality clothes, we try to make differences between the local and our brand that prior the customer choices and respect the customer interest about the clothing for men, women, and kids respectively. It will be our grace if you choose Saro Classic.",
     image: hi1,
-    // image: homeAboutAfricanArtImage
   },
 
   futureAfricanArt: {
