@@ -10,12 +10,14 @@ import {
   Button,
   Divider,
   Icon,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { DeleteOutline } from "@material-ui/icons";
 import { ROUTES } from "../../utils/api/routes";
 import { removeFromCart } from "../../redux/actions";
 import { showSnackBar } from "./SnackBar";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   list: {
-    // width: 350,
+    width: 300,
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
@@ -197,6 +199,12 @@ function Cart({
           }}
         >
           Go to Checkout
+        </Button>
+        <Button
+          style={{ position: "absolute", bottom: 20, left: 20 }}
+          onClick={() => setOpenCart(false)}
+        >
+          <ChevronRightIcon />
         </Button>
       </div>
     </SwipeableDrawer>

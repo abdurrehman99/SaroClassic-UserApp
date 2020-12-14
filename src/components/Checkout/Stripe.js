@@ -12,6 +12,8 @@ import sweetAlert from "sweetalert";
 
 function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   let order = {
     cart: cart.items,
     status: "PENDING",
@@ -24,8 +26,9 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
 
   order["shippingAddress"] = shippingAddress;
 
-  const handleToken = async (token) => {
+  const handleStripePayment = async (token) => {
     // console.log(token);
+    setLoading(true);
 
     try {
       const charge = await axios.post(ROUTES.PAYMENT_STRIPE, {
@@ -43,6 +46,8 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
       });
       clearCart();
     } catch (e) {
+      setLoading(true);
+
       console.log(e);
       showSnackBar("Fail to process your order", "error");
       setStep(1);
@@ -55,7 +60,7 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
         name="Saro Classic"
         amount={parseFloat(cart.total)} //Amount in cents $9.99
         image={logoA} // the pop-in header image (default none)
-        token={handleToken}
+        token={handleStripePayment}
         stripeKey={STRIPE_KEY}
         email={user && user.email ? user.email : email}
       >
@@ -63,6 +68,7 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
           variant="contained"
           color="primary"
           style={{ width: "200px", margin: "5px" }}
+          disabled={loading}
         >
           <ImageDivBackground
             image={require("../../assets/icons/stripe.png")}

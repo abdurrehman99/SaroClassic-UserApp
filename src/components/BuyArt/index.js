@@ -23,13 +23,13 @@ function BuyArt({ filter, masterpiece, getAllProducts }) {
 
   return (
     <>
-      <Jumbotron
+      {/* <Jumbotron
         content={
           masterpiece
             ? buyArtContent.masterpiece.jumbotron
             : buyArtContent.general.jumbotron
         }
-      />
+      /> */}
       <Grid container>
         <Grid item md={3} xs={12} className={classes.marginTop}>
           <Filter

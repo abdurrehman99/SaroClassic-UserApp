@@ -28,7 +28,7 @@ import { clearCart, removeFromCart } from "../../redux/actions";
 import {
   CountryPicker,
   showSnackBar,
-  ImageDivBackground,
+  FullpageLoader,
 } from "../CommonComponents";
 import { fieldValidate } from "../../utils/formValidation";
 import Stripe from "./Stripe";
@@ -166,6 +166,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const removeAllCart = () => {
     sweetAlert({
@@ -182,6 +183,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
   };
 
   const cashOnDelivery = async () => {
+    setLoading(true);
     let order = {
       cart: cart.items,
       status: "PENDING",
@@ -205,6 +207,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
       });
       clearCart();
     } catch (e) {
+      setLoading(false);
       console.log(e);
       showSnackBar("Fail to process your order", "error");
       setStep(1);
@@ -480,6 +483,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
               <Button
                 variant="contained"
                 color="primary"
+                disabled={loading}
                 style={{ width: "200px", margin: "5px" }}
                 onClick={() => cashOnDelivery()}
               >
