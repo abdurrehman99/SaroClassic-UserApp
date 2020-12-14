@@ -24,6 +24,7 @@ export const ROUTES = {
   GET_USER_FROM_TOKEN: `${BASE_URL}/user/decodeUser`,
   USER_UPDATE_PROFILE: `${BASE_URL}/user/updateProfile`,
   USER_UPDATE_PASSWORD: `${BASE_URL}/user/updatePassword`,
+  USER_FORGOT_SEND_CODE: `${BASE_URL}/user/resetPassword`,
 
   //Products Routes
   FEATURED_PRODUCTS: `${BASE_URL}/products/featured`,
@@ -38,7 +39,7 @@ export const ROUTES = {
   USER_VERIFY: `${USER_ROUTES}/verify`,
 
   //ForgotPassword
-  USER_FORGOT_SEND_CODE: `${USER_ROUTES}/sendCode`,
+
   USER_FORGOT_VERIFY_CODE: `${USER_ROUTES}/verifyCode`,
   USER_FORGOT_RESET_PASSWORD: `${USER_ROUTES}/resetProfilePassword`,
   //ArtProducts

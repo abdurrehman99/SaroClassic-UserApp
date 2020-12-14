@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    paddingRight: 25,
+    paddingLeft: 25,
   },
   mainBox: {
     // backgroundColor: "#f6f6f6",
@@ -55,7 +57,7 @@ export default function InformationGrid({ content, reverse }) {
           sm={12}
           className={`${classes.gridFlex} ${classes.imgStyle}`}
         >
-          <img src={image} width="100%" alt="African Art" />
+          <img src={image} width="100%" alt="" />
         </Grid>
       </Grid>
     </Box>

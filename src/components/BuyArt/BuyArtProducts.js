@@ -37,7 +37,6 @@ function BuyArtProducts({
   fetchArtListingMasterpiece,
   fetchSingleProduct,
   masterpiece,
-  redux,
   match: {
     params: { id },
   },
@@ -54,10 +53,7 @@ function BuyArtProducts({
       ? fetchArtListingMasterpiece(pageNo)
       : fetchArtListingGeneral(pageNo);
   };
-  useEffect(() => {
-    setModalOpen(false);
-    console.log("close modal===>", redux);
-  }, [redux]);
+
   return (
     <>
       <PaintingModal
@@ -108,8 +104,6 @@ const mapStateToProps = (state) => {
     artListingMasterpiece: state.artListing.masterpiece,
     artListingGeneral: state.artListing.general,
     singleProduct: state.singleProduct,
-    modal: state.modal,
-    redux: state,
   };
 };
 

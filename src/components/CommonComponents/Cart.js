@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   list: {
-    width: 350,
+    // width: 350,
     padding: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
@@ -118,7 +118,6 @@ function Cart({
     ) {
       return;
     }
-
     setOpenCart(open);
   };
 
@@ -193,7 +192,7 @@ function Cart({
           fullWidth
           disabled={!cart.items.length}
           onClick={() => {
-            toggleDrawer(true);
+            setOpenCart(false);
             history.push("/checkout");
           }}
         >

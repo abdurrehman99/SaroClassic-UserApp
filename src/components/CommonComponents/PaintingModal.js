@@ -15,7 +15,7 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { ROUTES } from "../../utils/api/routes";
-import { addToCart, closeModal } from "../../redux/actions";
+import { addToCart } from "../../redux/actions";
 import { showSnackBar } from "./SnackBar";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PaintingModal({ open, close, content, addToCart, closeModal }) {
+function PaintingModal({ open, close, content, addToCart }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(1);
   const [activeSize, setActiveSize] = useState(null);
@@ -61,7 +61,7 @@ function PaintingModal({ open, close, content, addToCart, closeModal }) {
 
   const selectSize = (s, i) => {
     if (i !== activeSize) {
-      console.log(i);
+      // console.log(i);
       setActiveSize(i);
       setSize(s);
       setSizeError(false);
@@ -73,10 +73,11 @@ function PaintingModal({ open, close, content, addToCart, closeModal }) {
   const fillCart = () => {
     if (activeSize !== null) {
       addToCart({ ...content, size, quantity });
-      console.log({ ...content, size, quantity });
       showSnackBar("Product added to Cart", "success");
-      closeModal(true);
+      // console.log({ ...content, size, quantity });
       setSizeError(false);
+      setActiveSize(null);
+      close();
     } else {
       setSizeError(true);
     }
@@ -212,4 +213,4 @@ function PaintingModal({ open, close, content, addToCart, closeModal }) {
   );
 }
 
-export default connect((_) => ({}), { addToCart, closeModal })(PaintingModal);
+export default connect((_) => ({}), { addToCart })(PaintingModal);

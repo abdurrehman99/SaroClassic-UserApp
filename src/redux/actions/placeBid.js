@@ -24,10 +24,3 @@ export const placeBid = (id, userId, amount) => async (dispatch) => {
     );
   }
 };
-
-export const closeModal = () => async (dispatch) => {
-  dispatch({
-    type: "CLOSE_MODAL",
-    payload: false,
-  });
-};

@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   list: {
-    width: 300,
+    // width: 300,
   },
   mobileNav: {
     display: "flex",

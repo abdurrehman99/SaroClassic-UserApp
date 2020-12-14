@@ -32,7 +32,8 @@ import {
 } from "../CommonComponents";
 import { fieldValidate } from "../../utils/formValidation";
 import Stripe from "./Stripe";
-import { jwtSign } from "../../utils/jwt";
+import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import axios from "axios";
 import sweetAlert from "sweetalert";
@@ -165,6 +166,20 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
   const [step, setStep] = useState(1);
+
+  const removeAllCart = () => {
+    sweetAlert({
+      title: `Are you sure want to discard all item?`,
+      icon: "error",
+      buttons: true,
+      closeOnClickOutside: false,
+    }).then((willDelete) => {
+      if (willDelete) {
+        clearCart();
+        history.push("/");
+      }
+    });
+  };
 
   const cashOnDelivery = async () => {
     let order = {
@@ -342,8 +357,36 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
                       )}
                     </Card>
                   ))}
-                  {cart.items.length === 0 && (
+                  {cart.items.length === 0 ? (
                     <Typography variant="body1">Your Cart is empty</Typography>
+                  ) : (
+                    <Grid
+                      container
+                      direction="row"
+                      justify="space-between"
+                      // alignItems="flex-end"
+                    >
+                      <Grid item xs={7}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => history.push("/")}
+                          startIcon={<ExitToAppIcon />}
+                        >
+                          Continue Shopping
+                        </Button>
+                      </Grid>
+                      <Grid item xs={5}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={removeAllCart}
+                          startIcon={<RemoveShoppingCartIcon />}
+                        >
+                          Clear Cart
+                        </Button>
+                      </Grid>
+                    </Grid>
                   )}
                 </div>
               </div>
