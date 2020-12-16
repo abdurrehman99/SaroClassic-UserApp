@@ -245,231 +245,246 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
   switch (step) {
     case 1:
       return (
-        <form onSubmit={gotoStep2}>
-          <Grid container className={classes.container} justify="space-around">
-            <Grid item md={4} xs={12} className={classes.gridItem}>
-              <Typography variant="h5">Information</Typography>
-              <Divider className={classes.marginDivider} />
-              <TextField
-                size="small"
-                variant="outlined"
-                label="Full Name"
-                margin="dense"
-                fullWidth
-                value={fullName}
-                onChange={
-                  status == "loggedOut"
-                    ? ({ target: { value } }) => setFullName(value)
-                    : null
-                }
-              />
-              <TextField
-                size="small"
-                variant="outlined"
-                label="Email"
-                margin="dense"
-                type="email"
-                fullWidth
-                value={email}
-                onChange={
-                  status == "loggedOut"
-                    ? ({ target: { value } }) => setEmail(value)
-                    : null
-                }
-              />
-              <TextField
-                size="small"
-                variant="outlined"
-                label="Shipping Address"
-                multiline
-                rows={4}
-                margin="dense"
-                fullWidth
-                value={address}
-                onChange={({ target: { value } }) => setAddress(value)}
-              />
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <TextField
-                    size="small"
-                    variant="outlined"
-                    label="Contact No."
-                    type="text"
-                    margin="dense"
-                    fullWidth
-                    value={contact}
-                    onChange={
-                      status == "loggedOut"
-                        ? ({ target: { value } }) => setContact(value)
-                        : null
-                    }
-                    inputProps={{
-                      maxLength: 10,
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">+92</InputAdornment>
-                      ),
-                    }}
-                  />
+        <>
+          <form onSubmit={gotoStep2}>
+            <Grid
+              container
+              className={classes.container}
+              justify="space-around"
+            >
+              <Grid item md={4} xs={12} className={classes.gridItem}>
+                <Typography variant="h5">Information</Typography>
+                <Divider className={classes.marginDivider} />
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  label="Full Name"
+                  margin="dense"
+                  fullWidth
+                  value={fullName}
+                  onChange={
+                    status == "loggedOut"
+                      ? ({ target: { value } }) => setFullName(value)
+                      : null
+                  }
+                />
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  label="Email"
+                  margin="dense"
+                  type="email"
+                  fullWidth
+                  value={email}
+                  onChange={
+                    status == "loggedOut"
+                      ? ({ target: { value } }) => setEmail(value)
+                      : null
+                  }
+                />
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  label="Shipping Address"
+                  multiline
+                  rows={4}
+                  margin="dense"
+                  fullWidth
+                  value={address}
+                  onChange={({ target: { value } }) => setAddress(value)}
+                />
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      size="small"
+                      variant="outlined"
+                      label="Contact No."
+                      type="text"
+                      margin="dense"
+                      fullWidth
+                      value={contact}
+                      onChange={
+                        status == "loggedOut"
+                          ? ({ target: { value } }) => setContact(value)
+                          : null
+                      }
+                      inputProps={{
+                        maxLength: 10,
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">+92</InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid
-              item
-              md={4}
-              xs={12}
-              className={`${classes.gridItem} ${classes.gridItemCart}`}
-            >
-              <div className={classes.list} role="presentation">
-                <Typography variant="h5">Cart</Typography>
-                <Divider className={classes.marginDivider} />
-                <div className={classes.productList}>
-                  {cart.items.map((cartItem, i) => (
-                    <Card
-                      className={`${classes.cardStyle} ${
-                        cartItem.category === "masterpiece"
-                          ? classes.borderMasterpiece
-                          : null
-                      }`}
-                      raised
-                    >
-                      <img
-                        src={cartItem.images[0]}
-                        className={classes.cardMedia}
-                        alt=""
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography variant="body2">{cartItem.name}</Typography>
-                        <Typography variant="body2" color="secondary">
-                          Rs {cartItem.price}
-                        </Typography>
-                        <Typography variant="body2" color="secondary">
-                          Quantity : {cartItem.quantity}
-                        </Typography>
-                      </CardContent>
-                      <DeleteOutline
-                        onClick={() => {
-                          removeFromCart({ cartItem, i });
-                          showSnackBar("Item Removed.", "success");
-                        }}
-                        className={classes.deleteIcon}
-                      />
-                      {cartItem.category === "masterpiece" && (
-                        <Icon className={`fa fa-crown ${classes.iconStyle}`} />
-                      )}
-                    </Card>
-                  ))}
-                  {cart.items.length === 0 ? (
-                    <Typography variant="body1">Your Cart is empty</Typography>
-                  ) : (
-                    <Grid
-                      container
-                      direction="row"
-                      justify="space-between"
-                      // alignItems="flex-end"
-                    >
-                      <Grid item xs={7}>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={() => history.push("/")}
-                          startIcon={<ExitToAppIcon />}
-                        >
-                          Continue Shopping
-                        </Button>
+              <Grid
+                item
+                md={4}
+                xs={12}
+                className={`${classes.gridItem} ${classes.gridItemCart}`}
+              >
+                <div className={classes.list} role="presentation">
+                  <Typography variant="h5">Cart</Typography>
+                  <Divider className={classes.marginDivider} />
+                  <div className={classes.productList}>
+                    {cart.items.map((cartItem, i) => (
+                      <Card
+                        className={`${classes.cardStyle} ${
+                          cartItem.category === "masterpiece"
+                            ? classes.borderMasterpiece
+                            : null
+                        }`}
+                        raised
+                      >
+                        <img
+                          src={cartItem.images[0]}
+                          className={classes.cardMedia}
+                          alt=""
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography variant="body2">
+                            {cartItem.name}
+                          </Typography>
+                          <Typography variant="body2" color="secondary">
+                            Rs {cartItem.price}
+                          </Typography>
+                          <Typography variant="body2" color="secondary">
+                            Quantity : {cartItem.quantity}
+                          </Typography>
+                        </CardContent>
+                        <DeleteOutline
+                          onClick={() => {
+                            removeFromCart({ cartItem, i });
+                            showSnackBar("Item Removed.", "success");
+                          }}
+                          className={classes.deleteIcon}
+                        />
+                        {cartItem.category === "masterpiece" && (
+                          <Icon
+                            className={`fa fa-crown ${classes.iconStyle}`}
+                          />
+                        )}
+                      </Card>
+                    ))}
+                    {cart.items.length === 0 ? (
+                      <Typography variant="body1">
+                        Your Cart is empty
+                      </Typography>
+                    ) : (
+                      <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        // alignItems="flex-end"
+                      >
+                        <Grid item xs={7}>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => history.push("/")}
+                            startIcon={<ExitToAppIcon />}
+                          >
+                            Continue Shopping
+                          </Button>
+                        </Grid>
+                        <Grid item xs={5}>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={removeAllCart}
+                            startIcon={<RemoveShoppingCartIcon />}
+                          >
+                            Clear Cart
+                          </Button>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={5}>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={removeAllCart}
-                          startIcon={<RemoveShoppingCartIcon />}
-                        >
-                          Clear Cart
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Grid>
-            <Grid item md={3} xs={12} className={classes.gridItem}>
-              <Typography variant="h5">Order Summary</Typography>
-              <Divider className={classes.marginDivider} />
-              <Box className={classes.detailItemStyle}>
-                <Person fontSize="small" />
-                <Box ml={1}>
-                  <Typography variant="body1">
-                    {fullName || "-------"}
-                  </Typography>
+              </Grid>
+              <Grid item md={3} xs={12} className={classes.gridItem}>
+                <Typography variant="h5">Order Summary</Typography>
+                <Divider className={classes.marginDivider} />
+                <Box className={classes.detailItemStyle}>
+                  <Person fontSize="small" />
+                  <Box ml={1}>
+                    <Typography variant="body1">
+                      {fullName || "-------"}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box className={classes.detailItemStyle}>
-                <LocationOnOutlined fontSize="small" />
-                <Box ml={1}>
-                  <Typography variant="body2">
-                    {address || "-------"}
-                  </Typography>
+                <Box className={classes.detailItemStyle}>
+                  <LocationOnOutlined fontSize="small" />
+                  <Box ml={1}>
+                    <Typography variant="body2">
+                      {address || "-------"}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box className={classes.detailItemStyle}>
-                <PhoneOutlined fontSize="small" />
-                <Box ml={1}>
-                  <Typography variant="body1">
-                    {`+92 ${contact}` || "-------"}
-                  </Typography>
+                <Box className={classes.detailItemStyle}>
+                  <PhoneOutlined fontSize="small" />
+                  <Box ml={1}>
+                    <Typography variant="body1">
+                      {`+92 ${contact}` || "-------"}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box className={classes.detailItemStyle}>
-                <EmailOutlined fontSize="small" />
-                <Box ml={1}>
-                  <Typography variant="body1">{email || "-------"}</Typography>
+                <Box className={classes.detailItemStyle}>
+                  <EmailOutlined fontSize="small" />
+                  <Box ml={1}>
+                    <Typography variant="body1">
+                      {email || "-------"}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Divider className={classes.marginDivider} />
-              <Card className={classes.cardTotal} raised>
-                <Typography variant="body1" className={classes.subTotal}>
-                  Subtotal: <b>PKR {cart.total}</b>
-                </Typography>
-
-                {cart.items.length > 0 && (
+                <Divider className={classes.marginDivider} />
+                <Card className={classes.cardTotal} raised>
                   <Typography variant="body1" className={classes.subTotal}>
-                    Shipping Charges: <b>PKR 150</b>
+                    Subtotal: <b>PKR {cart.total}</b>
+                  </Typography>
+
+                  {cart.items.length > 0 && (
+                    <Typography variant="body1" className={classes.subTotal}>
+                      Shipping Charges: <b>PKR 150</b>
+                    </Typography>
+                  )}
+                </Card>
+                {cart.items.length > 0 && (
+                  <Typography variant="h6" className={{}}>
+                    ORDER TOTAL : PKR <b>{cart.total + 150}</b>
                   </Typography>
                 )}
-              </Card>
-              {cart.items.length > 0 && (
-                <Typography variant="h6" className={{}}>
-                  ORDER TOTAL : PKR <b>{cart.total + 150}</b>
-                </Typography>
-              )}
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                type="submit"
-                fullWidth
-                className={classes.checkoutBtn}
-                disabled={!cart.items.length}
-              >
-                Checkout
-              </Button>
-              {!cart.items.length ? (
-                <Typography
-                  variant="body2"
-                  style={{ color: "red", padding: "2px" }}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  type="submit"
+                  fullWidth
+                  className={classes.checkoutBtn}
+                  disabled={!cart.items.length}
                 >
-                  *Fill cart to continue.
-                </Typography>
-              ) : null}
+                  Checkout
+                </Button>
+                {!cart.items.length ? (
+                  <Typography
+                    variant="body2"
+                    style={{ color: "red", padding: "2px" }}
+                  >
+                    *Fill cart to continue.
+                  </Typography>
+                ) : null}
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
+          </form>
+        </>
       );
     case 2:
       return (
         <Grid container justify="center" className={classes.container}>
+          {loading && <FullpageLoader />}
           <Grid item xs={12} md={4} className={classes.paymentContainer}>
             <Typography variant="h5" className={classes.marginBottom}>
               Payment

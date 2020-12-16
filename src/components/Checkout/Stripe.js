@@ -3,7 +3,11 @@ import StripeCheckout from "react-stripe-checkout";
 import { logoA } from "../../utils/contentConstants";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
-import { ImageDivBackground, showSnackBar } from "../CommonComponents";
+import {
+  ImageDivBackground,
+  showSnackBar,
+  FullpageLoader,
+} from "../CommonComponents";
 import { useHistory } from "react-router-dom";
 import { clearCart } from "../../redux/actions";
 import { ROUTES, STRIPE_KEY } from "../../utils/api/routes";
@@ -27,7 +31,7 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
   order["shippingAddress"] = shippingAddress;
 
   const handleStripePayment = async (token) => {
-    // console.log(token);
+    console.log(token);
     setLoading(true);
 
     try {
@@ -56,8 +60,10 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
 
   return (
     <>
+      {loading && <FullpageLoader />}
       <StripeCheckout
         name="Saro Classic"
+        closed={() => setStep(1)}
         amount={parseFloat(cart.total)} //Amount in cents $9.99
         image={logoA} // the pop-in header image (default none)
         token={handleStripePayment}
