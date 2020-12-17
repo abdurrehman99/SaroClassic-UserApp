@@ -19,16 +19,15 @@ import {
   Menu as MenuIcon,
   HomeOutlined,
   ShoppingBasketOutlined,
-  GavelOutlined,
   ListOutlined,
   AccountBalanceOutlined,
   BrushOutlined,
-  SyncAltOutlined,
-  PersonOutlineOutlined,
+  ContactMail,
+  Person,
   ShoppingCartOutlined,
   ExpandMoreOutlined,
   ExitToAppOutlined,
-  StarBorderOutlined,
+  PersonAdd,
 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import Cart from "./Cart";
@@ -76,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px 0",
   },
   Icon: {
-    fontSize: "16px",
+    fontSize: "18px",
     marginRight: "15px",
   },
   iconSocial: {
@@ -172,17 +171,14 @@ function NavBar({
           open={anchorEl && anchorEl.getAttribute("id") === "navShop"}
           onClose={handleClose}
         >
-          <Link className={classes.link} to="/allProducts">
+          <Link className={classes.link} to="/allproducts">
             <MenuItem onClick={handleClose} className={classes.menuItem}>
               All Products
             </MenuItem>
           </Link>
         </Menu>
-        <Link className={classes.link} to="/reserve">
-          Reserve
-        </Link>
         <Link className={classes.link} to="/artists">
-          Services
+          Contact Us
         </Link>
         <Link
           className={`${classes.link} ${classes.flexLink}`}
@@ -206,7 +202,7 @@ function NavBar({
               </MenuItem>
             </Link>
           ) : (
-            <>
+            <Fragment>
               <Link className={classes.link} to="/signin">
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
                   Sign In
@@ -217,10 +213,10 @@ function NavBar({
                 to={loggedIn ? "/account" : "/signup"}
               >
                 <MenuItem onClick={handleClose} className={classes.menuItem}>
-                  Sign Up
+                  Create an account
                 </MenuItem>
               </Link>
-            </>
+            </Fragment>
           )}
 
           {loggedIn && (
@@ -248,36 +244,13 @@ function NavBar({
       <Divider />
       <Link
         className={`${classes.link} ${classes.linkMobile}`}
-        to="/allProducts"
+        to="//allproducts"
       >
         <ShoppingBasketOutlined className={classes.Icon} />
         All Products
       </Link>
       <Divider />
-      <Link
-        className={`${classes.link} ${classes.linkMobile}`}
-        to="/masterpiece"
-      >
-        <StarBorderOutlined className={classes.Icon} />
-        Masterpieces
-      </Link>
-      <Divider />
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/auction">
-        <GavelOutlined className={classes.Icon} />
-        Auction
-      </Link>
-      <Divider />
-      <Divider />
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/reserve">
-        <AccountBalanceOutlined className={classes.Icon} />
-        Reserve Paintings
-      </Link>
-      <Divider />
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/artists">
-        <BrushOutlined className={classes.Icon} />
-        Services
-      </Link>
-      <Divider />
+
       {loggedIn ? (
         <Fragment>
           <Link
@@ -293,7 +266,7 @@ function NavBar({
             className={`${classes.link} ${classes.linkMobile}`}
             to="/account"
           >
-            <PersonOutlineOutlined className={classes.Icon} />
+            <Person className={classes.Icon} />
             Account
           </Link>
           <Divider />
@@ -310,11 +283,22 @@ function NavBar({
           </Link>
         </Fragment>
       ) : (
-        <Link className={`${classes.link} ${classes.linkMobile}`} to="/signin">
-          <PersonOutlineOutlined className={classes.Icon} />
-          Login
-        </Link>
+        <Fragment>
+          <Link
+            className={`${classes.link} ${classes.linkMobile}`}
+            to="/signin"
+          >
+            <Person className={classes.Icon} />
+            Sign In
+          </Link>
+          <Divider />
+        </Fragment>
       )}
+      <Link className={`${classes.link} ${classes.linkMobile}`} to="/artists">
+        <ContactMail className={classes.Icon} />
+        Contact Us
+      </Link>
+
       <Divider />
     </>
   );

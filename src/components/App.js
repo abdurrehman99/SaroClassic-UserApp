@@ -49,7 +49,7 @@ function App({ getFeaturedProducts, loadCart, status, currentStatusUser }) {
           <Route exact path="/" render={(props) => <Home {...props} />} />
           <Route
             exact
-            path="/allProducts"
+            path="/allproducts"
             render={(props) => <BuyArt {...props} />}
           />
           <Route
@@ -96,21 +96,6 @@ function App({ getFeaturedProducts, loadCart, status, currentStatusUser }) {
             exact
             path="/trading/:id"
             render={(props) => <TradingProductPage {...props} />}
-          />
-          <Route
-            exact
-            path="/artists"
-            render={(props) => <Artists {...props} />}
-          />
-          <Route
-            exact
-            path="/artists/booknow"
-            render={(props) => <BookNow {...props} />}
-          />
-          <Route
-            exact
-            path="/artists/:id"
-            render={(props) => <ArtistPage {...props} />}
           />
           <Route
             exact

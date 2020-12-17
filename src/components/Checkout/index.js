@@ -184,19 +184,24 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
 
   const cashOnDelivery = async () => {
     setLoading(true);
+    let data = {};
+
     let order = {
       cart: cart.items,
       status: "PENDING",
       paymentMethod: "COD",
       totalBill: cart.total + 150,
+      shippingAddress: address,
     };
+
+    data["order"] = order;
+    user && user._id ? (data["user"] = user) : (data["user"] = null);
     user && user._id
       ? (order["UserId"] = user._id)
       : (order["UserId"] = "WALK-IN CUSTOMER");
 
-    order["shippingAddress"] = address;
     try {
-      const response = await axios.post(ROUTES.NEW_ORDER, { order });
+      const response = await axios.post(ROUTES.NEW_ORDER, data);
       history.push("/");
       console.log(response);
       sweetAlert({

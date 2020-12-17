@@ -18,19 +18,22 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  let order = {
-    cart: cart.items,
-    status: "PENDING",
-    paymentMethod: "STRIPE",
-    totalBill: cart.total + 150,
-  };
-  user && user._id
-    ? (order["UserId"] = user._id)
-    : (order["UserId"] = "WALK-IN CUSTOMER");
-
-  order["shippingAddress"] = shippingAddress;
-
   const handleStripePayment = async (token) => {
+    let order = {
+      cart: cart.items,
+      status: "PENDING",
+      paymentMethod: "STRIPE",
+      totalBill: cart.total + 150,
+      shippingAddress,
+    };
+
+    let data = {};
+    data["order"] = order;
+    user && user._id ? (data["user"] = user) : (data["user"] = null);
+    user && user._id
+      ? (order["UserId"] = user._id)
+      : (order["UserId"] = "WALK-IN CUSTOMER");
+
     console.log(token);
     setLoading(true);
 
@@ -39,8 +42,8 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
         token,
         amount: cart.total + 150,
       });
-      console.log(charge);
-      const response = await axios.post(ROUTES.NEW_ORDER, { order });
+      // console.log(charge);
+      const response = await axios.post(ROUTES.NEW_ORDER, data);
       history.push("/");
       sweetAlert({
         title: `Order # ${response.data.orderNo} Has been placed !`,
@@ -51,7 +54,6 @@ function Stripe({ cart, user, clearCart, shippingAddress, email, setStep }) {
       clearCart();
     } catch (e) {
       setLoading(true);
-
       console.log(e);
       showSnackBar("Fail to process your order", "error");
       setStep(1);
