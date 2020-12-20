@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   //     padding: theme.spacing(1)
   //   },
   cardTop: {
-    //   height: "30px",
     backgroundColor: "#1c1c1c",
     borderTopLeftRadius: "5px",
     borderTopRightRadius: "5px",

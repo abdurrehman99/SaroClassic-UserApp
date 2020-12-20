@@ -8,23 +8,12 @@ import {
   currentStatusUser,
   getFeaturedProducts,
 } from "../redux/actions";
-import Success from "./Checkout/Success";
-import Failure from "./Checkout/Failure";
-import PaypalAfterPayment from "./Checkout/PaypalAfterPayment";
 
 import Home from "./Home";
 import BuyArt from "./BuyArt";
+import Men from "./Men";
 import Account from "./Account";
 import ListAndSell from "./Account/ListAndSell";
-import Auction from "./Auction";
-import AuctionProductPage from "./Auction/AuctionProductPage";
-import Reserve from "./Reserve";
-import ReserveProductPage from "./Reserve/ReserveProductPage";
-import Trading from "./Trading";
-import TradingProductPage from "./Trading/TradingProductPage";
-import Artists from "./Artists";
-import ArtistPage from "./Artists/ArtistPage";
-import BookNow from "./Artists/BookNow";
 import Signin from "./Auth/Signin";
 import Signup from "./Auth/Signup";
 import ForgotPassword from "./Auth/ForgotPassword";
@@ -49,54 +38,15 @@ function App({ getFeaturedProducts, loadCart, status, currentStatusUser }) {
           <Route exact path="/" render={(props) => <Home {...props} />} />
           <Route
             exact
-            path="/allproducts"
+            path="/women-collection"
             render={(props) => <BuyArt {...props} />}
           />
           <Route
             exact
-            path="/buyart/:id"
-            render={(props) => <BuyArt {...props} />}
+            path="/men-collection"
+            render={(props) => <Men {...props} />}
           />
-          <Route
-            exact
-            path="/masterpiece"
-            render={(props) => <BuyArt {...props} masterpiece />}
-          />
-          <Route
-            exact
-            path="/masterpiece/:id"
-            render={(props) => <BuyArt {...props} masterpiece />}
-          />
-          <Route
-            exact
-            path="/auction"
-            render={(props) => <Auction {...props} />}
-          />
-          <Route
-            exact
-            path="/auction/:id"
-            render={(props) => <AuctionProductPage {...props} />}
-          />
-          <Route
-            exact
-            path="/reserve"
-            render={(props) => <Reserve {...props} />}
-          />
-          <Route
-            exact
-            path="/reserve/:id"
-            render={(props) => <ReserveProductPage {...props} />}
-          />
-          <Route
-            exact
-            path="/trading"
-            render={(props) => <Trading {...props} />}
-          />
-          <Route
-            exact
-            path="/trading/:id"
-            render={(props) => <TradingProductPage {...props} />}
-          />
+
           <Route
             exact
             path="/signin"
@@ -122,21 +72,7 @@ function App({ getFeaturedProducts, loadCart, status, currentStatusUser }) {
             path="/checkout"
             render={(props) => <Checkout {...props} />}
           />
-          <Route
-            exact
-            path="/paypal/:status"
-            render={(props) => <PaypalAfterPayment {...props} />}
-          />
-          <Route
-            exact
-            path="/success"
-            render={(props) => <Success {...props} />}
-          />
-          <Route
-            exact
-            path="/failure"
-            render={(props) => <Failure {...props} />}
-          />
+
           {status === "loggedIn" && (
             <Fragment>
               {/* <Route
@@ -148,11 +84,6 @@ function App({ getFeaturedProducts, loadCart, status, currentStatusUser }) {
                 exact
                 path="/account"
                 render={(props) => <Account {...props} />}
-              />
-              <Route
-                exact
-                path="/listandsell"
-                render={(props) => <ListAndSell {...props} />}
               />
             </Fragment>
           )}

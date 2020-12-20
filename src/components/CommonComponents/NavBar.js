@@ -18,10 +18,7 @@ import {
 import {
   Menu as MenuIcon,
   HomeOutlined,
-  ShoppingBasketOutlined,
-  ListOutlined,
-  AccountBalanceOutlined,
-  BrushOutlined,
+  LocalMall,
   ContactMail,
   Person,
   ShoppingCartOutlined,
@@ -51,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
     color: "black",
-    padding: "0px 10px",
+    padding: "0px 25px",
     fontFamily: "Muli",
   },
   flexLink: {
@@ -156,15 +153,15 @@ function NavBar({
         <Link className={classes.link} to="/">
           Home
         </Link>
-        <Link
+        {/* <Link
           className={`${classes.link} ${classes.flexLink}`}
           id="navShop"
           onClick={handleClick}
         >
           Products
           <ExpandMoreOutlined fontSize="small" />
-        </Link>
-        <Menu
+        </Link> */}
+        {/* <Menu
           id="navShop"
           anchorEl={anchorEl}
           keepMounted
@@ -176,9 +173,12 @@ function NavBar({
               All Products
             </MenuItem>
           </Link>
-        </Menu>
-        <Link className={classes.link} to="/artists">
-          Contact Us
+        </Menu> */}
+        <Link className={classes.link} to="/women-collection">
+          Women's Collection
+        </Link>
+        <Link className={classes.link} to="/men-collection">
+          Men's Collection
         </Link>
         <Link
           className={`${classes.link} ${classes.flexLink}`}
@@ -244,24 +244,27 @@ function NavBar({
       <Divider />
       <Link
         className={`${classes.link} ${classes.linkMobile}`}
-        to="//allproducts"
+        to="/women-collection"
       >
-        <ShoppingBasketOutlined className={classes.Icon} />
-        All Products
+        <LocalMall className={classes.Icon} />
+        Women's Collection
       </Link>
       <Divider />
-
+      <Link
+        className={`${classes.link} ${classes.linkMobile}`}
+        to="/men-collection"
+      >
+        <LocalMall className={classes.Icon} />
+        Men's Collection
+      </Link>
+      <Divider />
+      <Link className={`${classes.link} ${classes.linkMobile}`} to="/artists">
+        <ContactMail className={classes.Icon} />
+        Contact Us
+      </Link>
+      <Divider />
       {loggedIn ? (
         <Fragment>
-          <Link
-            className={`${classes.link} ${classes.linkMobile}`}
-            to={loggedIn ? "/listandsell" : "/signin"}
-          >
-            <ListOutlined className={classes.Icon} />
-            List & Sell
-          </Link>
-          <Divider />
-
           <Link
             className={`${classes.link} ${classes.linkMobile}`}
             to="/account"
@@ -294,10 +297,6 @@ function NavBar({
           <Divider />
         </Fragment>
       )}
-      <Link className={`${classes.link} ${classes.linkMobile}`} to="/artists">
-        <ContactMail className={classes.Icon} />
-        Contact Us
-      </Link>
 
       <Divider />
     </>
@@ -315,9 +314,6 @@ function NavBar({
               width="130px"
             />
           </div>
-          <Hidden xsDown>
-            <SearchBar />
-          </Hidden>
           <Cart openCart={openCart} setOpenCart={setOpenCart} />
           <Hidden smDown>
             <nav>{navMenu()}</nav>
@@ -387,11 +383,6 @@ function NavBar({
             </IconButton>
           </div>
         </Toolbar>
-        <Hidden smUp>
-          <Toolbar>
-            <SearchBar />
-          </Toolbar>
-        </Hidden>
       </AppBar>
     </Fragment>
   );

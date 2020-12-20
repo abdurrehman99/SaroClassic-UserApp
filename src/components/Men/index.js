@@ -15,12 +15,12 @@ import {
 import { Jumbotron } from "../CommonComponents";
 import { buyArtContent } from "../../utils/contentConstants";
 import { makeStyles } from "@material-ui/core/styles";
+import Filter from "../CommonComponents/Filter";
 import BuyArtProducts from "./BuyArtProducts";
-import { getAllProducts } from "../../redux/actions";
+import { getMenProducts } from "../../redux/actions";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import Delete from "@material-ui/icons/Close";
-import SearchOutlined from "@material-ui/icons/SearchOutlined";
 
 const useStyles = makeStyles((theme) => ({
   marginTop: {
@@ -45,18 +45,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BuyArt({ masterpiece, getAllProducts, allCategories }) {
+function BuyArt({ masterpiece, getMenProducts, allCategories }) {
   const classes = useStyles();
-
   const [priceOpen, setPriceOpen] = useState(true);
   const [category, setCategory] = useState("");
   const [AllCategory, setAllCategory] = useState([]);
 
   useEffect(() => {
-    getAllProducts("WOMEN");
+    getMenProducts("MEN");
   }, []);
+
   useEffect(() => {
-    let filtered = allCategories.filter((e) => e.mainCategory === "WOMEN");
+    let filtered = allCategories.filter((e) => e.mainCategory === "MEN");
     setAllCategory(filtered);
     // console.log("filtered", filtered);
   }, [allCategories]);
@@ -64,15 +64,7 @@ function BuyArt({ masterpiece, getAllProducts, allCategories }) {
   const setFilter = (name, index) => {
     setCategory(name);
     let All = AllCategory;
-    // if (name === "CLEAR") {
-    //   for (let i = 0; i < AllCategory.length; i++) {
-    //     All[i].checked = false;
-    //   }
-    // } else {
-    //   if (All[index].checked) {
-    //     All[index].checked = !All[index].checked;
-    //   } else All[index].checked = true;
-    // }
+
     setAllCategory(All);
   };
 
@@ -167,4 +159,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getAllProducts })(BuyArt);
+export default connect(mapStateToProps, { getMenProducts })(BuyArt);

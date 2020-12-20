@@ -57,25 +57,22 @@ function Footer({ location: { pathname } }) {
           <Link className={classes.Link} to="/">
             <Typography variant="body2">Home</Typography>
           </Link>
-          <Link className={classes.Link} to="/buyart">
-            <Typography variant="body2">Buy Art</Typography>
+          <Link className={classes.Link} to="/women-collection">
+            <Typography variant="body2">Women's Collection</Typography>
           </Link>
-          <Link className={classes.Link} to="/masterpiece">
-            <Typography variant="body2">Masterpieces</Typography>
-          </Link>
-          <Link className={classes.Link} to="/auction">
-            <Typography variant="body2">Auction</Typography>
+          <Link className={classes.Link} to="/men-collection">
+            <Typography variant="body2">Men's Collection</Typography>
           </Link>
         </Grid>
         <Grid item sm={4} xs={6}>
-          <Link className={classes.Link} to="/reserve">
-            <Typography variant="body2">Reserve</Typography>
+          <Link className={classes.Link} to="/signup">
+            <Typography variant="body2">Create an Account</Typography>
           </Link>
-          <Link className={classes.Link} to="/artists">
-            <Typography variant="body2">Services</Typography>
+          <Link className={classes.Link} to="/signin">
+            <Typography variant="body2">Sign In</Typography>
           </Link>
-          <Link className={classes.Link} to="/trading">
-            <Typography variant="body2">Trading</Typography>
+          <Link className={classes.Link} to="/checkout">
+            <Typography variant="body2">Go to Checkout</Typography>
           </Link>
         </Grid>
         <Divider

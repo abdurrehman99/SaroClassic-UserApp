@@ -8,9 +8,9 @@ export default function NotFound({
 }) {
   const loginRequiredURLS = ["account", "listandsell"];
   useEffect(() => {
-    if (loginRequiredURLS.find((item) => pathname.includes(item))) {
-      push("/signin");
-    }
+    // if (loginRequiredURLS.find((item) => pathname.includes(item))) {
+    //   push("/signin");
+    // }
   }, []);
 
   return (
@@ -18,11 +18,11 @@ export default function NotFound({
       variant="h4"
       style={{ textAlign: "center", margin: "10vw 0", flex: 1 }}
     >
-      {loginRequiredURLS.find((item) => pathname.includes(item)) ? (
+      {/* {loginRequiredURLS.find((item) => pathname.includes(item)) ? (
         <FullpageLoader />
-      ) : (
-        "404 - Not Found"
-      )}
+      ) : ( */}
+      404 - Not Found
+      {/* )} */}
     </Typography>
   );
 }

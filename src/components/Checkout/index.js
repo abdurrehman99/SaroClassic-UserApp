@@ -399,6 +399,7 @@ function Checkout({ cart, removeFromCart, status, user, clearCart }) {
                           <Button
                             variant="contained"
                             color="secondary"
+                            fullWidth
                             onClick={removeAllCart}
                             startIcon={<RemoveShoppingCartIcon />}
                           >

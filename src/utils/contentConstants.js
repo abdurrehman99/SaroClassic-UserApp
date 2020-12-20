@@ -6,45 +6,45 @@ import coverHome from "../assets/Home.jpg";
 
 import hi1 from "../assets/Clothing.jpeg";
 import hi3 from "../assets/Future.jpg";
-//BuyArt Page
-import buyArtGeneralCover from "../assets/buyArtPage/coverGeneral.jpg";
-import buyArtMasterpieceCover from "../assets/buyArtPage/coverMasterpiece.jpg";
-//modalConstant
-import sampleImage1 from "../assets/sampleImages/sample1.jpg";
-import sampleImage2 from "../assets/sampleImages/sample2.jpg";
-import sampleImage3 from "../assets/sampleImages/sample3.jpg";
-import sampleImage4 from "../assets/sampleImages/sample4.jpg";
-import sampleImage5 from "../assets/sampleImages/sample5.jpg";
-import sampleImage6 from "../assets/sampleImages/sample6.jpg";
-import sampleImage7 from "../assets/sampleImages/sample7.jpg";
-import sampleImage8 from "../assets/sampleImages/sample8.jpg";
-import sampleImage9 from "../assets/sampleImages/sample9.jpg";
-import sampleAvatar1 from "../assets/sampleImages/sampleAvatar1.jpg";
-import sampleAvatar2 from "../assets/sampleImages/sampleAvatar2.jpg";
-import sampleAvatar3 from "../assets/sampleImages/sampleAvatar3.jpg";
-import sampleAvatar4 from "../assets/sampleImages/sampleAvatar4.jpg";
-//auctionPage
-import auctionCover from "../assets/auctionPageImages/cover.jpg";
-//reservePage
-import reserveCover from "../assets/reservePage/coverImage.jpg";
+// //BuyArt Page
+// import buyArtGeneralCover from "../assets/buyArtPage/coverGeneral.jpg";
+// import buyArtMasterpieceCover from "../assets/buyArtPage/coverMasterpiece.jpg";
+// //modalConstant
+// import sampleImage1 from "../assets/sampleImages/sample1.jpg";
+// import sampleImage2 from "../assets/sampleImages/sample2.jpg";
+// import sampleImage3 from "../assets/sampleImages/sample3.jpg";
+// import sampleImage4 from "../assets/sampleImages/sample4.jpg";
+// import sampleImage5 from "../assets/sampleImages/sample5.jpg";
+// import sampleImage6 from "../assets/sampleImages/sample6.jpg";
+// import sampleImage7 from "../assets/sampleImages/sample7.jpg";
+// import sampleImage8 from "../assets/sampleImages/sample8.jpg";
+// import sampleImage9 from "../assets/sampleImages/sample9.jpg";
+// import sampleAvatar1 from "../assets/sampleImages/sampleAvatar1.jpg";
+// import sampleAvatar2 from "../assets/sampleImages/sampleAvatar2.jpg";
+// import sampleAvatar3 from "../assets/sampleImages/sampleAvatar3.jpg";
+// import sampleAvatar4 from "../assets/sampleImages/sampleAvatar4.jpg";
+// //auctionPage
+// import auctionCover from "../assets/auctionPageImages/cover.jpg";
+// //reservePage
+// import reserveCover from "../assets/reservePage/coverImage.jpg";
 //reserveProductPage
 // import reserveProductCoverSample from "../assets/sampleImages/reserveProductCoverSample.jpg";
 //regionSelectModal
-import noRegion from "../assets/regionSelectModalImages/noRegion.png";
-import internationalRegion from "../assets/regionSelectModalImages/internationalRegion.png";
-import africanRegion from "../assets/regionSelectModalImages/africanRegion.png";
+// import noRegion from "../assets/regionSelectModalImages/noRegion.png";
+// import internationalRegion from "../assets/regionSelectModalImages/internationalRegion.png";
+// import africanRegion from "../assets/regionSelectModalImages/africanRegion.png";
 //services page
-import servicesCover from "../assets/servicesPage/mainCover.jpg";
-import servicesImage1 from "../assets/servicesPage/image1.jpg";
-import servicesImage2 from "../assets/servicesPage/image2.jpg";
-import servicesImage3 from "../assets/servicesPage/image3.jpg";
-import servicesImage4 from "../assets/servicesPage/image4.jpg";
-import servicesImage5 from "../assets/servicesPage/image5.jpg";
-import servicesImage6 from "../assets/servicesPage/image6.jpg";
+// import servicesCover from "../assets/servicesPage/mainCover.jpg";
+// import servicesImage1 from "../assets/servicesPage/image1.jpg";
+// import servicesImage2 from "../assets/servicesPage/image2.jpg";
+// import servicesImage3 from "../assets/servicesPage/image3.jpg";
+// import servicesImage4 from "../assets/servicesPage/image4.jpg";
+// import servicesImage5 from "../assets/servicesPage/image5.jpg";
+// import servicesImage6 from "../assets/servicesPage/image6.jpg";
 //tradingPage
-import tradingCover from "../assets/tradingPage/mainCover.jpg";
+// import tradingCover from "../assets/tradingPage/mainCover.jpg";
 //listAndSellPage
-import listAndSellCover from "../assets/listAndSellPage/cover.jpg";
+// import listAndSellCover from "../assets/listAndSellPage/cover.jpg";
 
 export const logo = logoImage;
 export const logoA = logoAImage;
@@ -82,14 +82,14 @@ export const buyArtContent = {
     jumbotron: {
       title: "The visual arts of native Africa",
       description: "Premium African Art Pieces For You To Grab!",
-      imageURL: buyArtGeneralCover,
+      // imageURL: buyArtGeneralCover,
     },
   },
   masterpiece: {
     jumbotron: {
       title: "Masterpiece Exclusive ",
       description: "Premium African Art Pieces For You To Grab!",
-      imageURL: buyArtMasterpieceCover,
+      // imageURL: buyArtMasterpieceCover,
     },
   },
 };
@@ -99,7 +99,7 @@ export const auctionContent = {
     title: "Paintings for Auction",
     description:
       "Let your walls do the talking with an original painting from one of the world's most talented independent painters.",
-    imageURL: auctionCover,
+    // imageURL: auctionCover,
   },
 };
 
@@ -108,7 +108,7 @@ export const reserveContent = {
     title: "Offerings",
     description:
       "Browse paintings to invest in by the most popular mid-career and established artists",
-    imageURL: reserveCover,
+    // imageURL: reserveCover,
   },
 };
 
@@ -126,15 +126,15 @@ export const servicesPageContent = {
     title: "Hire an Artist",
     description:
       "No matter what kind of art you need, finding the right Artist for your project is easy on AfricanArt International",
-    imageURL: servicesCover,
+    // imageURL: servicesCover,
   },
   images: [
-    servicesImage1,
-    servicesImage2,
-    servicesImage3,
-    servicesImage4,
-    servicesImage5,
-    servicesImage6,
+    // servicesImage1,
+    // servicesImage2,
+    // servicesImage3,
+    // servicesImage4,
+    // servicesImage5,
+    // servicesImage6,
   ],
 };
 
@@ -143,7 +143,7 @@ export const tradingPageContent = {
     title: "Trade around!",
     description:
       "Trade paintings and other artefacts with other people from around the globe.",
-    imageURL: tradingCover,
+    // imageURL: tradingCover,
   },
 };
 
@@ -152,31 +152,31 @@ export const listAndSellPageContent = {
     title: "Get access to exclusive customer base",
     description:
       "List and Sell your own art pieces on AfricanArt.International",
-    imageURL: listAndSellCover,
+    // imageURL: listAndSellCover,
   },
 };
 
 export const regionSelectContent = {
-  images: [noRegion, internationalRegion, africanRegion],
+  images: [],
 };
 
 export const sampleImages = [
-  sampleImage1,
-  sampleImage2,
-  sampleImage3,
-  sampleImage4,
-  sampleImage5,
-  sampleImage6,
-  sampleImage7,
-  sampleImage8,
-  sampleImage9,
+  // sampleImage1,
+  // sampleImage2,
+  // sampleImage3,
+  // sampleImage4,
+  // sampleImage5,
+  // sampleImage6,
+  // sampleImage7,
+  // sampleImage8,
+  // sampleImage9,
 ];
 
 export const sampleAvatars = [
-  sampleAvatar1,
-  sampleAvatar2,
-  sampleAvatar3,
-  sampleAvatar4,
+  // sampleAvatar1,
+  // sampleAvatar2,
+  // sampleAvatar3,
+  // sampleAvatar4,
 ];
 
 export const countries = [

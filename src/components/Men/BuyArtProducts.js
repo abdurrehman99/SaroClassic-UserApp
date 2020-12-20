@@ -16,6 +16,8 @@ import {
   Card2Loading,
 } from "../CommonComponents";
 import { makeStyles } from "@material-ui/core/styles";
+import Delete from "@material-ui/icons/Close";
+import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import {
   closeModal,
   fetchArtListingGeneral,
@@ -24,8 +26,7 @@ import {
 } from "../../redux/actions";
 import Pagination from "@material-ui/lab/Pagination";
 import PaintingCard2 from "../CommonComponents/PaintingCard2";
-import Delete from "@material-ui/icons/Close";
-import SearchOutlined from "@material-ui/icons/SearchOutlined";
+
 const useStyles = makeStyles((theme) => ({
   marginTop: {
     marginTop: theme.spacing(3),
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function BuyArtProducts({
-  allProducts,
+  menProducts,
   fetchArtListingGeneral,
   fetchArtListingMasterpiece,
   masterpiece,
@@ -47,9 +48,9 @@ function BuyArtProducts({
   },
 }) {
   const classes = useStyles();
-  const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState("");
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
   const [AllFProducts, setAllFProducts] = useState([]);
   const showProductDetails = (product) => {
@@ -63,21 +64,12 @@ function BuyArtProducts({
   };
 
   useEffect(() => {
-    setAllFProducts(allProducts);
-  }, [allProducts]);
-
-  useEffect(() => {
-    console.log("category for filter", category);
-    if (category === "CLEAR") setAllFProducts(allProducts);
-    else {
-      let filtered = allProducts.filter((e) => e.category === category);
-      setAllFProducts(filtered);
-    }
-  }, [category]);
+    setAllFProducts(menProducts);
+  }, [menProducts]);
 
   const searchItems = (value) => {
     setSearch(value);
-    let filtered = allProducts.filter((e) =>
+    let filtered = menProducts.filter((e) =>
       e.name.toLowerCase().includes(value)
     );
     setAllFProducts(filtered);
@@ -85,8 +77,17 @@ function BuyArtProducts({
 
   const clearSearch = () => {
     setSearch("");
-    setAllFProducts(allProducts);
+    setAllFProducts(menProducts);
   };
+
+  useEffect(() => {
+    console.log("category for filter", category);
+    if (category === "CLEAR") setAllFProducts(menProducts);
+    else {
+      let filtered = menProducts.filter((e) => e.category === category);
+      setAllFProducts(filtered);
+    }
+  }, [category]);
 
   return (
     <>
@@ -135,9 +136,9 @@ function BuyArtProducts({
             />
           </Grid>
         ))}
-        {!allProducts.length && <Card2Loading />}
-        {!allProducts.length && <Card2Loading />}
-        {!allProducts.length && <Card2Loading />}
+        {!menProducts.length && <Card2Loading />}
+        {!menProducts.length && <Card2Loading />}
+        {!menProducts.length && <Card2Loading />}
         <Grid xs={12}>
           <Box display="flex" justifyContent="flex-end" px={3} py={2}>
             <Pagination
@@ -155,7 +156,7 @@ function BuyArtProducts({
 
 const mapStateToProps = (state) => {
   return {
-    allProducts: state.products.allProducts,
+    menProducts: state.products.menProducts,
     artListingAll: state.artListing.all,
     artListingMasterpiece: state.artListing.masterpiece,
     artListingGeneral: state.artListing.general,
