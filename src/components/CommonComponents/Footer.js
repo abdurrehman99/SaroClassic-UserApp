@@ -47,8 +47,13 @@ function Footer({ location: { pathname } }) {
             className={`fab fa-facebook ${classes.Icon}`}
             color="#ffffff"
           />
-          <Icon className={`fab fa-twitter ${classes.Icon}`} color="#ffffff" />
           <Icon
+            onClick={() => window.open("https://twitter.com/saroclassic")}
+            className={`fab fa-twitter ${classes.Icon}`}
+            color="#ffffff"
+          />
+          <Icon
+            onClick={() => window.open("https://www.instagram.com/saroclassic")}
             className={`fab fa-instagram ${classes.Icon}`}
             color="#ffffff"
           />
